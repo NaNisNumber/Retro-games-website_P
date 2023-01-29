@@ -1,0 +1,125 @@
+@font-face {
+  src: url(../Assets/AtariClassic-font-family/AtariClassicChunky-PxXP.ttf);
+  font-family: Atari-chunky;
+}
+
+.gaming__hero-section {
+  padding: 2.8rem 2.4rem 9.6rem 2.4rem;
+  background-color: #1d1e4d;
+  overflow-y: hidden;
+  position: relative;
+}
+
+.gaming__hero-container {
+  display: grid;
+  row-gap: 4.8rem;
+  align-items: center;
+}
+header {
+  display: grid;
+}
+.gaming__hero-heading {
+  color: #fff;
+  font-size: 2.4rem;
+  font-weight: 400;
+  text-align: center;
+  font-family: Atari-chunky;
+  margin-bottom: 2rem;
+}
+
+.gaming__hero-text {
+  font-family: Lobster;
+  line-height: 1.8;
+  color: #fff;
+  font-size: 1.6rem;
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+.gaming__hero-btn {
+  border-style: none;
+  color: #fff;
+  font-size: 1.6rem;
+  font-family: Roboto;
+  background-color: #e43082;
+  padding: 0.8rem 1.6rem;
+  border-radius: 2.8rem;
+  justify-self: end;
+  transition: 0.3s all;
+  cursor: pointer;
+}
+.gaming__hero-btn:hover,
+.gaming__hero-btn:active {
+  background-color: rgb(228, 47, 129, 0.7);
+}
+.gaming__hero-img-sm,
+.gaming__hero-img-big {
+  box-shadow: 1px 3px 3px 1px #e43082;
+  border-radius: 50% 15%;
+}
+.gaming__hero-img-sm {
+  justify-self: center;
+  width: 80%;
+  transform: rotate(-15deg);
+}
+.gaming__hero-img-big {
+  display: none;
+}
+/* MEDIA QUERIES */
+
+@media screen and (min-width: 500px) {
+  .gaming__hero-heading {
+    font-size: 3.2rem;
+  }
+  .gaming__hero-container {
+    row-gap: 6rem;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .gaming__hero-section {
+    padding: 3.6rem 3.6rem 9.6rem 3.6rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .gaming__hero-container {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2.4rem;
+  }
+  .gaming__hero-img-sm {
+    display: none;
+  }
+
+  .gaming__hero-img-big {
+    width: 90%;
+    display: inline-block;
+    justify-self: center;
+  }
+  .gaming__hero-btn {
+    justify-self: center;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .gaming__hero-container {
+    column-gap: 1.6rem;
+  }
+  .gaming__hero-img-big {
+    width: 75%;
+    display: inline-block;
+  }
+  .gaming__hero-heading {
+    font-size: 4rem;
+  }
+  .gaming__hero-text {
+    font-size: 1.8rem;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .gaming__hero-container {
+    grid-template-columns: 1fr 1.5fr;
+    align-items: start;
+  }
+} ;

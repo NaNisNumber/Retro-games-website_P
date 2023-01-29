@@ -1,0 +1,148 @@
+.gaming__navbar {
+  height: 100vh;
+  position: fixed;
+  width: 70%;
+  z-index: 20;
+  padding: 2rem 0 0 0;
+  background-color: silver;
+  transition: 0.5s ease-in-out;
+  border-right: 2px solid #36454f;
+  transform: translateX(-100%);
+}
+
+.gaming__navbar-account {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 3.6rem;
+  justify-content: center;
+}
+.gaming__navbar-login-btn {
+  border-style: none;
+  color: #1d1e4d;
+  border-radius: 4px;
+  padding: 0.4rem 1.6rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  transition: 0.3s ease-out all;
+  background-color: #f0f0f0;
+}
+.gaming__navbar-login-btn:active,
+.gaming__navbar-login-btn:hover {
+  color: rgba(29, 30, 77, 0.7);
+  background-color: #fff;
+}
+.gaming__navbar-register-btn {
+  border-style: none;
+  background-color: #1d1e4d;
+  color: #fff;
+  padding: 0.4rem 1.6rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1.4rem;
+  transition: 0.3s ease-out all;
+}
+.gaming__navbar-register-btn:active,
+.gaming__navbar-register-btn:hover {
+  background-color: rgba(29, 30, 77, 0.7);
+}
+.gaming__navbar-close-btn {
+  padding: 0;
+  border-style: none;
+  background-color: #36454f;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(50%, -50%);
+  border-radius: 50%;
+  box-shadow: 2px 0 0 #fff;
+}
+.gaming__navbar-close-icon {
+  width: 30px;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(236deg)
+    brightness(105%) contrast(103%);
+}
+.gaming__navbar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  font-family: "Roboto";
+  font-weight: 500;
+  color: #1d1e4d;
+  font-size: 1.4rem;
+  margin-bottom: 1.6rem;
+}
+.gaming__navbar ul a:link,
+.gaming__navbar ul a:visited,
+.gaming__navbar ul a:active {
+  color: #1d1e4d;
+  text-decoration: none;
+  border-radius: 4px;
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  border: 3px solid rgb(237, 248, 219);
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: 0.3s ease-out all;
+}
+.gaming__navbar-link-active {
+  border: 3px solid #1d1e4d !important;
+}
+.gaming__navbar ul a:active,
+.gaming__navbar ul a:hover {
+  color: #fff;
+  border: 3px solid #fff;
+  background-color: #1d1e4d;
+}
+.gaming__navbar hr {
+  border: none;
+  height: 1px;
+  background-color: #1d1e4d;
+  width: 60%;
+}
+
+/* ACTIONS */
+
+/* GAMING NAVBAR IS CLOSED */
+.gaming__navbar-closed {
+  transform: translateX(-100%);
+}
+.gaming__navbar-opened {
+  transform: translateX(0);
+}
+
+/* === MEDIA QUERIES === */
+@media screen and (min-width: 500px) {
+  .gaming__navbar {
+    width: 50%;
+  }
+}
+@media screen and (min-width: 900px) {
+  .gaming__navbar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+    position: static;
+    padding: 1.5rem 2rem;
+    transform: translateX(0);
+    border: none;
+  }
+  .gaming__navbar hr {
+    display: none;
+  }
+  .gaming__navbar-account {
+    margin-bottom: 0;
+  }
+  .gaming__navbar ul {
+    display: flex;
+    flex-direction: initial;
+    margin-bottom: 0;
+  }
+
+  .gaming__navbar-close-btn {
+    display: none;
+  }
+}
