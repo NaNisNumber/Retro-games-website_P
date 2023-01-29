@@ -39,12 +39,13 @@ export default function NavBar({ mainMenuIsClosed, setMainMenuIsClosed }) {
   return (
     <nav className={"gaming__navbar "}>
       <div className="gaming__navbar-account">
-        <button className="gaming__navbar-login-btn btn">
-          <a href="./">Log In</a>
-        </button>
-        <button className="gaming__navbar-register-btn btn">
+        <Link className="gaming__navbar-login-btn" to="login">
+          Log In
+        </Link>
+
+        <Link className="gaming__navbar-register-btn" to="login">
           Create account
-        </button>
+        </Link>
       </div>
       {displayCloseBtn}
       <ul>{navLinks}</ul>
