@@ -1,5 +1,5 @@
 import "./App.css";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import SharedComponents from "./components/SharedComponents";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
@@ -14,6 +14,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [mainMenuIsClosed, setMainMenuIsClosed] = useState(true);
+  const [isCreatingAccount, setIsCreatingAccount] = useState(false);
 
   return (
     <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
           path="/"
           element={
             <SharedComponents
+              setIsCreatingAccount={setIsCreatingAccount}
               mainMenuIsClosed={mainMenuIsClosed}
               setMainMenuIsClosed={setMainMenuIsClosed}
             />
@@ -41,7 +43,10 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="cart" element={<Cart />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="login" element={<Login />} />
+          <Route
+            path="login"
+            element={<Login isCreatingAccount={isCreatingAccount} />}
+          />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

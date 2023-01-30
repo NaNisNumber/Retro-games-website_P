@@ -18,42 +18,6 @@
   align-items: center;
 }
 
-.gaming__navbar-login-btn:link,
-.gaming__navbar-login-btn:visited {
-  font-family: "Roboto";
-  border-style: none;
-  border-radius: 4px;
-  padding: 0.4rem 1.6rem;
-  font-size: 1.4rem;
-  font-weight: 700;
-  transition: 0.3s ease-out all;
-  background-color: #f0f0f0;
-  color: #1d1e4d;
-  text-decoration: none;
-}
-.gaming__navbar-login-btn:active,
-.gaming__navbar-login-btn:hover {
-  background-color: #fff;
-  color: rgba(29, 30, 77, 0.7);
-}
-
-.gaming__navbar-register-btn:link,
-.gaming__navbar-register-btn:visited {
-  font-family: "Roboto";
-  border-style: none;
-  background-color: #1d1e4d;
-  padding: 0.4rem 1.6rem;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 1.4rem;
-  transition: 0.3s ease-out all;
-  text-decoration: none;
-  color: #fff;
-}
-.gaming__navbar-register-btn:active,
-.gaming__navbar-register-btn:hover {
-  background-color: rgba(29, 30, 77, 0.7);
-}
 .gaming__navbar-close-btn {
   padding: 0;
   border-style: none;
@@ -95,15 +59,16 @@
   cursor: pointer;
   transition: 0.3s ease-out all;
 }
-.gaming__navbar-link-active {
-  border: 3px solid #1d1e4d !important;
-}
 .gaming__navbar ul a:active,
 .gaming__navbar ul a:hover {
   color: #fff;
   border: 3px solid #fff;
   background-color: #1d1e4d;
 }
+.gaming__navbar-link-active {
+  border: 3px solid #1d1e4d !important;
+}
+
 .gaming__navbar hr {
   border: none;
   height: 1px;

@@ -1,11 +1,15 @@
 import "./NavBar.css";
-
 import { nanoid } from "nanoid";
-
-import { NavLink, Link } from "react-router-dom";
+import LogInBtn from "./LogInBtn/LogInBtn";
+import RegisterBtn from "./RegisterBtn/RegisterBtn";
+import { NavLink } from "react-router-dom";
 import navLinkData from "./navLinkData";
 
-export default function NavBar({ mainMenuIsClosed, setMainMenuIsClosed }) {
+export default function NavBar({
+  mainMenuIsClosed,
+  setMainMenuIsClosed,
+  setIsCreatingAccount,
+}) {
   function closeNav() {
     const navbar = document.querySelector(".gaming__navbar");
     navbar.classList.remove("gaming__navbar-opened");
@@ -39,13 +43,8 @@ export default function NavBar({ mainMenuIsClosed, setMainMenuIsClosed }) {
   return (
     <nav className={"gaming__navbar "}>
       <div className="gaming__navbar-account">
-        <Link className="gaming__navbar-login-btn" to="login">
-          Log In
-        </Link>
-
-        <Link className="gaming__navbar-register-btn" to="login">
-          Create account
-        </Link>
+        <LogInBtn setIsCreatingAccount={setIsCreatingAccount} />
+        <RegisterBtn setIsCreatingAccount={setIsCreatingAccount} />
       </div>
       {displayCloseBtn}
       <ul>{navLinks}</ul>

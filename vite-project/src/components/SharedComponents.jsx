@@ -2,7 +2,12 @@ import { React, Fragment } from "react";
 import NavBar from "./navbar/NavBar";
 import OpenNavBtn from "./open-nav-btn/OpenNavBtn";
 import { Outlet } from "react-router-dom";
-const SharedComponents = ({ mainMenuIsClosed, setMainMenuIsClosed }) => {
+
+const SharedComponents = ({
+  mainMenuIsClosed,
+  setMainMenuIsClosed,
+  setIsCreatingAccount,
+}) => {
   return (
     <Fragment>
       <OpenNavBtn
@@ -10,6 +15,7 @@ const SharedComponents = ({ mainMenuIsClosed, setMainMenuIsClosed }) => {
         setMainMenuIsClosed={setMainMenuIsClosed}
       />
       <NavBar
+        setIsCreatingAccount={setIsCreatingAccount}
         mainMenuIsClosed={mainMenuIsClosed}
         setMainMenuIsClosed={setMainMenuIsClosed}
       />
