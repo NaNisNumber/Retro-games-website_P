@@ -6,7 +6,10 @@ export default function HeroSection(props) {
       <div className="gaming__hero-container">
         <img className="gaming__hero-img-big" src="../Assets/heroImg.webp" />
         <header>
-          <h1 className="gaming__hero-heading">Retro Gaming</h1>
+          <div className="gaming__hero-heading-container">
+            <img className="gaming__logo" src="../../../Assets/logo.svg" />
+            <h1 className="gaming__hero-heading">Retro Gaming</h1>
+          </div>
           <p className="gaming__hero-text">
             Welcome to Retro Gaming World, we specialize in selling classic and
             retro games for a variety of platforms, including the Nintendo

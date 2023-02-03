@@ -1,17 +1,30 @@
 import "./NavBar.css";
+import { useRef } from "react";
 import { nanoid } from "nanoid";
-import LogInBtn from "./LogInBtn/LogInBtn";
-import RegisterBtn from "./RegisterBtn/RegisterBtn";
+import LogInBtn from "./GoToLogInBtn/GoToLogInBtn";
+import RegisterBtn from "./GoToRegisterBtn/GoToRegisterBtn";
 import { NavLink } from "react-router-dom";
 import navLinkData from "./navLinkData";
+import { useLocation } from "react-router-dom";
 
-export default function NavBar({
-  mainMenuIsClosed,
-  setMainMenuIsClosed,
-  setIsCreatingAccount,
-}) {
+export default function NavBar({ mainMenuIsClosed, setMainMenuIsClosed }) {
+  const navbarRef = useRef(null);
+  const navbar = navbarRef.current;
+  const locationData = useLocation();
+  const path = locationData.pathname;
+  if (navbar !== null) {
+    if (path === "/register" || path === "/login") {
+      navbar.style.position = "fixed";
+    }
+  }
+
+  if (navbar !== null) {
+    if (path !== "/register" && path !== "/login") {
+      navbar.style.position = "static";
+    }
+  }
+
   function closeNav() {
-    const navbar = document.querySelector(".gaming__navbar");
     navbar.classList.remove("gaming__navbar-opened");
     setMainMenuIsClosed(true);
   }
@@ -41,11 +54,12 @@ export default function NavBar({
   );
 
   return (
-    <nav className={"gaming__navbar "}>
+    <nav ref={navbarRef} className={"gaming__navbar "}>
       <div className="gaming__navbar-account">
-        <LogInBtn setIsCreatingAccount={setIsCreatingAccount} />
-        <RegisterBtn setIsCreatingAccount={setIsCreatingAccount} />
+        <LogInBtn />
+        <RegisterBtn />
       </div>
+
       {displayCloseBtn}
       <ul>{navLinks}</ul>
       <hr></hr>

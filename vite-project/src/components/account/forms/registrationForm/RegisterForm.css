@@ -1,0 +1,76 @@
+.gaming__account-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 7rem;
+}
+.gaming__account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 3.6rem;
+  width: min(40rem, 100%);
+  background-color: rgb(23, 80, 137);
+  border: 1px ridge silver;
+  border-radius: 9px;
+}
+.gaming__account-form-input {
+  background-color: silver;
+  border-style: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 9px;
+  color: #1d1e4d;
+}
+.gaming__account-form-btn-modifier {
+  align-self: center;
+}
+.gaming__account-register-btn {
+  font-family: "Roboto";
+  border-style: none;
+  background-color: #1d1e4d;
+  padding: 0.4rem 1.6rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1.4rem;
+  transition: 0.3s ease-out all;
+  text-decoration: none;
+  color: #fff;
+  align-self: center;
+  cursor: pointer;
+}
+.gaming__account-register-btn:active,
+.gaming__account-register-btn:hover {
+  background-color: rgba(29, 30, 77, 0.7);
+}
+.gaming__account-validation {
+  background-color: rgb(20, 51, 85);
+  padding: 1.6rem;
+  border-radius: 4px;
+}
+.gaming__account-validation ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-family: "Roboto";
+}
+.gaming__account-validation span {
+  margin-right: 1rem;
+  color: silver;
+}
+.gaming__account-validation-li-correct {
+  color: #00ff00;
+}
+.gaming__account-validation-li-wrong {
+  color: #ff0000;
+}
+/*=== MEDIA QUERIES ===*/
+@media screen and (min-width: 400px) {
+  .gaming__account-validation ul {
+    font-size: 1.4rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  .gaming__account-container {
+    margin-top: 12.8rem;
+  }
+} ;

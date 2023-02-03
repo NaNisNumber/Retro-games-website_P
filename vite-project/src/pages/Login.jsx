@@ -1,11 +1,11 @@
 import React from "react";
-import Form from "../components/registration/Form";
+import LogInForm from "../components/account/forms/loginForm/LogInForm";
 import "./pagesStyles/Login.css";
 
-const Login = ({ isCreatingAccount }) => {
+const Login = () => {
   return (
-    <section className="gaming__registration-section">
-      <Form isCreatingAccount={isCreatingAccount} />
+    <section className="gaming__login-section">
+      <LogInForm />
     </section>
   );
 };
