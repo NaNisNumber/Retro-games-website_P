@@ -9,23 +9,39 @@ import { useLocation } from "react-router-dom";
 
 export default function NavBar({ mainMenuIsClosed, setMainMenuIsClosed }) {
   const navbarRef = useRef(null);
-  const navbar = navbarRef.current;
+  const navbarFromRef = navbarRef.current;
   const locationData = useLocation();
   const path = locationData.pathname;
-  if (navbar !== null) {
-    if (path === "/register" || path === "/login") {
-      navbar.style.position = "fixed";
+
+  const changePosition = (position, logicalOperator, nav = navbarFromRef) => {
+    if (logicalOperator === "||") {
+      if (path === "/register" || path === "/login") {
+        nav.style.position = position;
+      }
     }
+    if (logicalOperator === "&&") {
+      if (path !== "/register" && path !== "/login") {
+        nav.style.position = position;
+      }
+    }
+  };
+
+  window.onload = () => {
+    const navbar = document.querySelector("nav");
+    changePosition("fixed", "||", navbar);
+    changePosition("static", "&&", navbar);
+  };
+
+  if (navbarFromRef !== null) {
+    changePosition("fixed", "||");
   }
 
-  if (navbar !== null) {
-    if (path !== "/register" && path !== "/login") {
-      navbar.style.position = "static";
-    }
+  if (navbarFromRef !== null) {
+    changePosition("static", "&&");
   }
 
   function closeNav() {
-    navbar.classList.remove("gaming__navbar-opened");
+    navbarFromRef.classList.remove("gaming__navbar-opened");
     setMainMenuIsClosed(true);
   }
   const linkData = navLinkData();
