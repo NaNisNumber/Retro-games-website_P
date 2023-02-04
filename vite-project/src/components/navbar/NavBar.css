@@ -87,18 +87,30 @@
 }
 
 /* === MEDIA QUERIES === */
+
+@media screen and (min-width: 350px) {
+  .gaming__navbar--sm-position-fixed {
+    position: fixed;
+  }
+}
+
 @media screen and (min-width: 500px) {
   .gaming__navbar {
     width: 50%;
   }
 }
 @media screen and (min-width: 900px) {
+  .gaming__navbar--big-position-fixed {
+    position: fixed;
+  }
+  .gaming__navbar--big-position-static {
+    position: static;
+  }
   .gaming__navbar {
     display: flex;
     justify-content: space-between;
     width: 100%;
     height: auto;
-    position: static;
     padding: 1.5rem 2rem;
     transform: translateX(0);
     border: none;

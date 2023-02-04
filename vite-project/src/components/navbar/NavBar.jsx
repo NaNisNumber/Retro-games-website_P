@@ -13,31 +13,35 @@ export default function NavBar({ mainMenuIsClosed, setMainMenuIsClosed }) {
   const locationData = useLocation();
   const path = locationData.pathname;
 
-  const changePosition = (position, logicalOperator, nav = navbarFromRef) => {
+  const changePosition = (logicalOperator, nav = navbarFromRef) => {
     if (logicalOperator === "||") {
       if (path === "/register" || path === "/login") {
-        nav.style.position = position;
+        nav.classList.remove(`gaming__navbar--big-position-static`);
+        nav.classList.add(`gaming__navbar--sm-position-fixed`);
+        nav.classList.add(`gaming__navbar--big-position-fixed`);
       }
     }
     if (logicalOperator === "&&") {
       if (path !== "/register" && path !== "/login") {
-        nav.style.position = position;
+        nav.classList.add(`gaming__navbar--big-position-static`);
+        nav.classList.add(`gaming__navbar--sm-position-fixed`);
+        nav.classList.remove(`gaming__navbar--big-position-fixed`);
       }
     }
   };
 
   window.onload = () => {
     const navbar = document.querySelector("nav");
-    changePosition("fixed", "||", navbar);
-    changePosition("static", "&&", navbar);
+    changePosition("||", navbar);
+    changePosition("&&", navbar);
   };
 
   if (navbarFromRef !== null) {
-    changePosition("fixed", "||");
+    changePosition("||");
   }
 
   if (navbarFromRef !== null) {
-    changePosition("static", "&&");
+    changePosition("&&");
   }
 
   function closeNav() {

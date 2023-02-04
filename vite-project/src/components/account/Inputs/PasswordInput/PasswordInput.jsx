@@ -16,7 +16,7 @@ const PasswordInput = ({ validatePassword, userPassword, setUserPassword }) => {
       }}
       placeholder="pass"
       className="gaming__account-form-input"
-      type="text"
+      type="password"
     ></input>
   );
 };
