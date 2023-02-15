@@ -1,0 +1,206 @@
+p,
+h1,
+h2,
+h3,
+h4,
+span,
+li {
+  font-family: "Roboto";
+}
+
+.gaming__feature-section {
+  padding: 4.8rem 2.4rem 9.6rem 2.4rem;
+  background-color: rgb(250, 241, 247);
+}
+
+.gaming__feature-header {
+  margin-bottom: 3.6rem;
+}
+.gaming__feature-heading {
+  font-weight: 500;
+  font-size: 2.4rem;
+  text-align: center;
+}
+
+.gaming__feature-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-bottom: 2.4rem;
+}
+
+.gaming__feature-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1d1e4d;
+  padding: 1.6rem 3.2rem;
+  color: rgb(250, 241, 247);
+  border-radius: 4px;
+}
+
+.gaming__feature-detail-container ion-icon {
+  width: 2.8rem;
+  height: 2.8rem;
+  padding: 0.6rem;
+  color: #1d1e4d;
+  background-color: rgb(250, 241, 247);
+  border-radius: 50%;
+  margin-bottom: 1.6rem;
+}
+
+.gaming__feature-detail {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+.gaming__feature-text {
+  font-size: 1.4rem;
+  text-align: center;
+}
+.gaming__feature-img-container {
+  transition: 0.3s all ease-in;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.gaming__feature-slider-img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}
+.gaming__feature-slider {
+  width: 302px;
+  margin: 0 auto;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+.gaming__move-btn {
+  background-color: #1d1e4d;
+  color: #fff;
+  border: 1px solid #fff;
+  font-size: 3.2rem;
+  padding: 0;
+  line-height: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -100%);
+  z-index: 10;
+  cursor: pointer;
+}
+.gaming__feature-move-slider-left-btn {
+  left: 3%;
+}
+.gaming__feature-move-slider-right-btn {
+  right: 3%;
+}
+.gaming__feature-game-cta-container {
+  position: absolute;
+  bottom: 3%;
+  display: flex;
+  justify-content: center;
+  gap: 1.6rem;
+  width: 100%;
+  z-index: 20;
+}
+.gaming__feature-game-page-btn {
+  font-weight: 500;
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: 1.6rem;
+  font-family: Roboto;
+  background-color: #e43082;
+  padding: 0.8rem 1.6rem;
+  border-radius: 2.8rem;
+  transition: 0.3s all;
+  cursor: pointer;
+}
+.gaming__feature-game-page-btn:hover,
+.gaming__feature-game-page-btn:active {
+  background-color: rgb(228, 47, 129, 0.7);
+}
+.gaming__feature-game-wishlist-btn {
+  font-weight: 500;
+  font-size: 1.6rem;
+  transition: 0.3s all;
+  cursor: pointer;
+  font-family: Roboto;
+  padding: 0.8rem 1.6rem;
+  background-color: silver;
+  color: #1d1e4d;
+  border: 1px solid #fff;
+}
+.gaming__feature-game-wishlist-btn:hover,
+.gaming__feature-game-wishlist-btn:active {
+  background-color: rgb(192, 192, 192, 0.7);
+}
+
+/* MEDIA QUERIES */
+@media screen and (min-width: 500px) {
+  .gaming__feature-details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .gaming__feature-variety-details {
+    grid-column: 1 / 3;
+  }
+  .gaming__feature-genres-details {
+    grid-column: 3 / 5;
+  }
+  .gaming__feature-about-details {
+    grid-column: 1 / -1;
+  }
+}
+@media screen and (min-width: 700px) {
+  .gaming__feature-heading {
+    font-size: 3.2rem;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .gaming__feature-details {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .gaming__feature-variety-details {
+    grid-column: auto;
+  }
+  .gaming__feature-genres-details {
+    grid-column: auto;
+  }
+  .gaming__feature-about-details {
+    grid-column: auto;
+  }
+}
+@media screen and (min-width: 950px) {
+  .gaming__feature-slider {
+    margin: 0;
+    flex-basis: 302px;
+    flex-shrink: 0;
+  }
+  .gaming__feature-details {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .gaming__feature-variety-details {
+    align-self: end;
+    grid-column: 1 / 3;
+  }
+  .gaming__feature-genres-details {
+    align-self: end;
+    grid-column: 3 / 5;
+  }
+  .gaming__feature-about-details {
+    align-self: flex-start;
+    grid-column: 1 / -1;
+  }
+  .gaming__feature-details-container {
+    display: flex;
+    gap: 1.6rem;
+    justify-content: center;
+  }
+}
+@media screen and (min-width: 1050px) {
+  .gaming__feature-text {
+    width: 80%;
+  }
+}
