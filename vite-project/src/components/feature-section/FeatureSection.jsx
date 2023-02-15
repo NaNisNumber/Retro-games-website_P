@@ -4,32 +4,23 @@ import "./FeatureSection.css";
 import { useEffect } from "react";
 
 const FeatureSection = ({ mainMenuIsClosed }) => {
-  const [games, setGames] = useState([]);
-  const [gameIndexes, setGameIndexes] = useState([]);
   const [sliderImgsExist, setSliderImgsExist] = useState(false);
   const sliderRef = useRef(null);
+  const [games, setSliderGames] = useState([]);
 
   useEffect(() => {
-    const retrieveRandomGameIndexes = async () => {
-      const response = await fetch("http://localhost:5001/");
-      const gameIndexes = await response.json();
-      setGameIndexes(gameIndexes);
-    };
-    retrieveRandomGameIndexes();
-
     const retrieveGameData = async () => {
-      const response = await fetch("http://localhost:5000/");
-      const data = await response.json();
-      const games = JSON.parse(data);
-      setGames(games);
+      const response = await fetch("http://localhost:5001/");
+      const games = await response.json();
+      setSliderGames(games);
     };
     retrieveGameData();
   }, []);
 
   function createSliders() {
     if (games.length === 0) return;
-    const sliderImgs = gameIndexes.map((index, i) => {
-      const gameUrl = games[index].cover.url.replace("thumb", "cover_big");
+    const sliderImgs = games.map((game, i) => {
+      const gameUrl = game.imgUrl;
 
       return (
         <figure key={nanoid()} className="gaming__feature-img-container">
