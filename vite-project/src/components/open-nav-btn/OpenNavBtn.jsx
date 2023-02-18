@@ -1,20 +1,33 @@
 import MenuSvg from "../menu-svg/MenuSvg";
+import { useRef } from "react";
 import "./OpenNavBtn.css";
-export default function OpenNavBtn({ mainMenuIsClosed, setMainMenuIsClosed }) {
+export default function OpenNavBtn({
+  mainMenuIsClosed,
+  setMainMenuIsClosed,
+  filterPanelIsOpened,
+}) {
+  const menuBtnRef = useRef(null);
+
   function startAnimations() {
+    if (!menuBtnRef.current) return;
     const rectElements = document.querySelectorAll("rect");
-    const menuBtn = document.querySelector(".gaming__open-nav-btn");
     const navbar = document.querySelector(".gaming__navbar");
-    menuBtn.classList.add("menu-shrink");
+    menuBtnRef.current.classList.add("menu-shrink");
+
+    let delays = [0, 0.2, 0.3, 0.4];
 
     rectElements.forEach((rect, i) => {
-      rect.classList.add(`rect${i}-shrink`);
+      if (filterPanelIsOpened) {
+        rect.style.animation = `shrink-rect-left 0.25s ${delays[i]}s ease-in-out forwards`;
+      } else {
+        rect.style.animation = `shrink-rect-left 0.25s ${delays[i]}s ease-in-out forwards`;
+      }
     });
 
-    menuBtn.addEventListener("animationend", function (e) {
+    menuBtnRef.current.addEventListener("animationend", function (e) {
       if (e.target === this) {
         setMainMenuIsClosed(false);
-        navbar.classList.add("gaming__navbar-opened"); // make it with delay
+        navbar.classList.add("gaming__navbar-opened");
       }
     });
   }
@@ -22,9 +35,25 @@ export default function OpenNavBtn({ mainMenuIsClosed, setMainMenuIsClosed }) {
   function openNav() {
     startAnimations();
   }
+  // Move menu btn when filter panel is opened
+  const moveNavBtn = () => {
+    if (!menuBtnRef.current) return;
+    if (filterPanelIsOpened) {
+      menuBtnRef.current.classList.remove("gaming__display-open-btn");
+      menuBtnRef.current.classList.add("gaming__hide-open-btnn");
+    } else {
+      menuBtnRef.current.classList.remove("gaming__hide-open-btnn");
+      menuBtnRef.current.classList.add("gaming__display-open-btn");
+    }
+  };
 
+  moveNavBtn();
   return mainMenuIsClosed ? (
-    <button onClick={openNav} className="gaming__open-nav-btn btn">
+    <button
+      ref={menuBtnRef}
+      onClick={openNav}
+      className="gaming__open-nav-btn btn"
+    >
       <MenuSvg />
     </button>
   ) : null;

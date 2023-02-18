@@ -1,0 +1,24 @@
+.gaming__searchbar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  width: 80%;
+}
+.gaming__searchbar-input {
+  padding-left: 0.6rem;
+  border: none;
+  width: 100%;
+}
+.gaming__searchbar-input:focus {
+  outline: none;
+  transform-origin: left;
+}
+.gaming__searchbar ion-icon {
+  font-size: 2.4rem;
+  background-color: #fff;
+  color: #1d1e4d;
+}
+.gaming__searchbar-container + p {
+  margin-bottom: 1rem;
+  color: #fff;
+  font-size: 1.6rem;
+}

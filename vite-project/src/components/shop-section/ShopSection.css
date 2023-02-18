@@ -1,0 +1,117 @@
+.gaming__shop-section {
+  background-color: rgb(250, 241, 247);
+  font-family: "Roboto";
+}
+.gaming__filter-container {
+  transform: translateX(-100%);
+  transition: 0.5s ease-in-out;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  width: 70%;
+  height: 100vh;
+  background-color: #1d1e4d;
+}
+
+.gaming__filters {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  justify-content: center;
+  gap: 1rem;
+}
+.gaming__filter-inner-container {
+  position: relative;
+  background-color: #fff;
+}
+.gaming__filter-name {
+  border-radius: 4px;
+  font-size: 1.6rem;
+  padding: 1rem 0;
+  text-align: center;
+}
+.gaming__filter-ul-visible {
+  position: absolute;
+  z-index: 2000;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.4rem;
+  background-color: silver;
+  height: 15rem;
+  width: 100%;
+  transition: 0.5s all;
+  overflow: scroll;
+}
+.gaming__filter-ul-visible > * {
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.gaming__filter-ul-visible li:first-child {
+  padding-top: 1rem;
+}
+.gaming__filter-ul-visible li:last-child {
+  padding-bottom: 1rem;
+}
+
+.gaming__open-filter {
+  cursor: pointer;
+  width: 4rem;
+  background-color: #fff;
+  color: #1d1e4d;
+  left: 2.4rem;
+  line-height: 0;
+  position: fixed;
+  top: 40%;
+  transform: translate(0, -50%);
+  border-style: none;
+  padding: 0.4rem;
+  font-size: 2.4rem;
+  border-radius: 4px;
+  z-index: 999;
+}
+.gaming__close-filter {
+  align-self: flex-end;
+  cursor: pointer;
+  border-style: none;
+  background-color: #e43082;
+  padding: 0;
+  line-height: 0;
+  color: #fff;
+}
+.gaming__close-filter ion-icon {
+  font-size: 3.2rem;
+  color: #fff;
+}
+/* CLASSES FOR JS */
+
+.add-shadow {
+  box-shadow: 0 0 0 3px #e43082;
+}
+
+.gaming__filter-ul-hidden {
+  overflow: hidden;
+  list-style: none;
+  height: 0;
+  padding: 0;
+}
+.gaming__filter-opened {
+  transform: translateX(0);
+}
+.gaming__hide-open-btn {
+  transition: 0.5s ease-in-out;
+  transform: translateX(calc(-100% - 2.4rem));
+}
+.gaming__display-open-btn {
+  transition: 0.5s 0.5s ease-in-out;
+  transform: translateX(0);
+}
+.gaming__searchbar-container {
+  margin-bottom: 2.4rem;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}

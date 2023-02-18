@@ -1,5 +1,6 @@
 .gaming__open-nav-btn {
-  left: 2.4rem;
+  transition: 0.5s 0.5s ease-in-out;
+  margin-left: 2.4rem;
   line-height: 0;
   position: fixed;
   top: 50%;
@@ -15,24 +16,21 @@
 .gaming__open-nav-icon {
   width: 3.2rem;
 }
+/* CLASSES FOR JS */
+.gaming__hide-open-btnn {
+  transition: 0.5s ease-in-out;
+  transform: translateX(calc(-100% - 2.4rem));
+}
+.gaming__display-open-btn {
+  transition: 0.5s 0.5s ease-in-out;
+  transform: translateX(0);
+}
+
 .menu-shrink {
   animation: shrink-menu 0.25s 0.5s ease-in-out forwards;
 }
 
-.rect0-shrink {
-  animation: shrink-rect 0.25s ease-in-out forwards;
-}
-.rect1-shrink {
-  animation: shrink-rect 0.25s 0.2s ease-in-out forwards;
-}
-.rect2-shrink {
-  animation: shrink-rect 0.25s 0.3s ease-in-out forwards;
-}
-.rect3-shrink {
-  animation: shrink-rect 0.25s 0.4s ease-in-out forwards;
-}
-
-@keyframes shrink-rect {
+@keyframes shrink-rect-left {
   0% {
     transform: scale(1, 1);
   }

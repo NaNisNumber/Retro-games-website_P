@@ -15,7 +15,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [mainMenuIsClosed, setMainMenuIsClosed] = useState(true);
-
+  const [filterPanelIsOpened, setFilterPanelIsOpened] = useState(false);
   return (
     <BrowserRouter>
       <Routes>
@@ -23,6 +23,7 @@ function App() {
           path="/"
           element={
             <SharedComponents
+              filterPanelIsOpened={filterPanelIsOpened}
               mainMenuIsClosed={mainMenuIsClosed}
               setMainMenuIsClosed={setMainMenuIsClosed}
             />
@@ -37,7 +38,15 @@ function App() {
               />
             }
           />
-          <Route path="shop" element={<Shop />} />
+          <Route
+            path="shop"
+            element={
+              <Shop
+                filterPanelIsOpened={filterPanelIsOpened}
+                setFilterPanelIsOpened={setFilterPanelIsOpened}
+              />
+            }
+          />
           <Route path="favorites" element={<Favorites />} />
           <Route path="about" element={<About />} />
           <Route path="cart" element={<Cart />} />
