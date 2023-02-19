@@ -1,0 +1,11 @@
+.gaming__menus-container {
+  z-index: 2000;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  align-items: start;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 2.4rem;
+}

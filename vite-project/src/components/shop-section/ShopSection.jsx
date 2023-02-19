@@ -1,14 +1,39 @@
 import { nanoid } from "nanoid";
 import React, { useEffect, useState, useRef } from "react";
 import SearchBar from "./searchbar/SearchBar";
+import BuyBtn from "./buttons/buy-button/BuyBtn";
 import "./ShopSection.css";
-const ShopSection = ({ filterPanelIsOpened, setFilterPanelIsOpened }) => {
-  const [games, setGames] = useState([]);
+const ShopSection = ({
+  filterPanelIsOpened,
+  setFilterPanelIsOpened,
+  games,
+  setGames,
+  setGameId,
+  openFilterBtnRef,
+}) => {
   const [genres, setGenres] = useState([]);
   const [filterByGenre, setFilterByGenre] = useState([]);
   const filtersToBeDisplayedRef = useRef(null);
   const filterContainerRef = useRef(null);
-  const openFilterBtnRef = useRef(null);
+
+  const createGameCard = () => {
+    const gameCards = games.map((game) => {
+      const gameCover = game.cover.url.replace("t_thumb", "t_cover_big");
+      const gameName = game.name.toUpperCase();
+      return (
+        <div key={nanoid()} className="gaming__game-container">
+          <img className="gaming__game-img" src={gameCover}></img>
+          <p className="gaming__game-name">{gameName}</p>
+          <div className="gaming__game-actions-container">
+            <button className="gaming__about-game-btn">About Game</button>
+            <BuyBtn />
+          </div>
+        </div>
+      );
+    });
+    return gameCards;
+  };
+  const gameCards = createGameCard();
 
   useEffect(() => {
     const retrieveGameData = async () => {
@@ -84,6 +109,7 @@ const ShopSection = ({ filterPanelIsOpened, setFilterPanelIsOpened }) => {
       <div ref={filterContainerRef} className="gaming__filter-container">
         <div className="gaming__searchbar-container">
           <SearchBar />
+
           <button
             onClick={() => {
               openFilterBtnRef.current.classList.remove(
@@ -118,18 +144,13 @@ const ShopSection = ({ filterPanelIsOpened, setFilterPanelIsOpened }) => {
           </div>
         </div>
       </div>
-      <button
-        ref={openFilterBtnRef}
-        onClick={() => {
-          openFilterBtnRef.current.classList.remove("gaming__display-open-btn");
-          openFilterBtnRef.current.classList.add("gaming__hide-open-btn");
-          setFilterPanelIsOpened(true);
-        }}
-        className="gaming__open-filter"
-      >
-        <ion-icon name="search"></ion-icon>
+
+      <button className="gaming__cart">
+        <ion-icon name="cart"></ion-icon>
       </button>
-      <main></main>
+      <main className="gaming__main-container">
+        <div className="gaming__main-content">{gameCards}</div>
+      </main>
     </section>
   );
 };

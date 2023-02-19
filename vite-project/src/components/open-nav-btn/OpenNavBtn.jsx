@@ -39,11 +39,11 @@ export default function OpenNavBtn({
   const moveNavBtn = () => {
     if (!menuBtnRef.current) return;
     if (filterPanelIsOpened) {
-      menuBtnRef.current.classList.remove("gaming__display-open-btn");
-      menuBtnRef.current.classList.add("gaming__hide-open-btnn");
+      menuBtnRef.current.classList.remove("gaming__display-menu-btn");
+      menuBtnRef.current.classList.add("gaming__hide-menu-btn");
     } else {
-      menuBtnRef.current.classList.remove("gaming__hide-open-btnn");
-      menuBtnRef.current.classList.add("gaming__display-open-btn");
+      menuBtnRef.current.classList.remove("gaming__hide-menu-btn");
+      menuBtnRef.current.classList.add("gaming__display-menu-btn");
     }
   };
 

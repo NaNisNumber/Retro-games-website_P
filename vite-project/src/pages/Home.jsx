@@ -10,11 +10,10 @@ const Home = ({ mainMenuIsClosed, setMainMenuIsClosed }) => {
         mainMenuIsClosed={mainMenuIsClosed}
         setMainMenuIsClosed={setMainMenuIsClosed}
       />
-      <main>
-        <FeatureSection mainMenuIsClosed={mainMenuIsClosed} />
-        <TestimonialSection />
-        <Footer />
-      </main>
+
+      <FeatureSection mainMenuIsClosed={mainMenuIsClosed} />
+      <TestimonialSection />
+      <Footer />
     </Fragment>
   );
 };

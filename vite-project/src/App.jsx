@@ -16,6 +16,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   const [mainMenuIsClosed, setMainMenuIsClosed] = useState(true);
   const [filterPanelIsOpened, setFilterPanelIsOpened] = useState(false);
+  const [games, setGames] = useState([]);
+  const [gameId, setGameId] = useState(null);
+  const [openFilterBtnRef, setOpenFilterBtnRef] = useState(null);
   return (
     <BrowserRouter>
       <Routes>
@@ -23,6 +26,8 @@ function App() {
           path="/"
           element={
             <SharedComponents
+              setOpenFilterBtnRef={setOpenFilterBtnRef}
+              setFilterPanelIsOpened={setFilterPanelIsOpened}
               filterPanelIsOpened={filterPanelIsOpened}
               mainMenuIsClosed={mainMenuIsClosed}
               setMainMenuIsClosed={setMainMenuIsClosed}
@@ -39,14 +44,19 @@ function App() {
             }
           />
           <Route
-            path="shop"
+            path="/shop"
             element={
               <Shop
+                openFilterBtnRef={openFilterBtnRef}
+                setGameId={setGameId}
+                setGames={setGames}
+                games={games}
                 filterPanelIsOpened={filterPanelIsOpened}
                 setFilterPanelIsOpened={setFilterPanelIsOpened}
               />
             }
-          />
+          ></Route>
+          {gameId && <Route path={`/shop/${gameId}`} element={<p>etee</p>} />}
           <Route path="favorites" element={<Favorites />} />
           <Route path="about" element={<About />} />
           <Route path="cart" element={<Cart />} />

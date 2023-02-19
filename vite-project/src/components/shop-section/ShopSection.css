@@ -1,11 +1,13 @@
 .gaming__shop-section {
-  background-color: rgb(250, 241, 247);
+  width: 100%;
+  background-color: rgb(97, 96, 96);
   font-family: "Roboto";
 }
 .gaming__filter-container {
   transform: translateX(-100%);
+  z-index: 3000;
   transition: 0.5s ease-in-out;
-  position: relative;
+  position: fixed;
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
@@ -13,7 +15,6 @@
   height: 100vh;
   background-color: #1d1e4d;
 }
-
 .gaming__filters {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
@@ -62,16 +63,11 @@
   width: 4rem;
   background-color: #fff;
   color: #1d1e4d;
-  left: 2.4rem;
   line-height: 0;
-  position: fixed;
-  top: 40%;
-  transform: translate(0, -50%);
   border-style: none;
   padding: 0.4rem;
   font-size: 2.4rem;
   border-radius: 4px;
-  z-index: 999;
 }
 .gaming__close-filter {
   align-self: flex-end;
@@ -85,6 +81,73 @@
 .gaming__close-filter ion-icon {
   font-size: 3.2rem;
   color: #fff;
+}
+.gaming__cart {
+  cursor: pointer;
+  right: 2.4rem;
+  width: 4rem;
+  background-color: #fff;
+  color: #1d1e4d;
+  line-height: 0;
+  position: fixed;
+  bottom: 2.4rem;
+  border-style: none;
+  padding: 0.4rem;
+  font-size: 2.4rem;
+  border-radius: 4px;
+  z-index: 999;
+}
+.gaming__main-container {
+  padding: 2.8rem 2.4rem 0rem 2.4rem;
+}
+.gaming__main-content {
+  display: grid;
+  gap: 2rem;
+  width: 90%;
+  margin: 0 auto;
+}
+.gaming__game-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 4px;
+  background-color: #e43082;
+}
+.gaming__game-img {
+  height: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+  width: 100%;
+  margin-bottom: 1.6rem;
+}
+.gaming__game-name {
+  margin-top: auto;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 1.6rem;
+}
+.gaming__game-actions-container {
+  justify-content: center;
+  display: flex;
+  gap: 1.4rem;
+}
+.gaming__about-game-btn {
+  transition: 0.3s all ease-in-out;
+  background-color: #fff;
+  color: #1d1e4d;
+  font-size: 1.4rem;
+  font-weight: 500;
+  border-radius: 4px;
+  border: none;
+  padding: 0.8rem 1.6rem;
+}
+.gaming__about-game-btn:active,
+.gaming__about-game-btn:hover {
+  background-color: silver;
+  color: #1d1e4d;
 }
 /* CLASSES FOR JS */
 
@@ -114,4 +177,26 @@
   justify-content: space-between;
   display: flex;
   align-items: center;
+}
+/* MEDIA QUERIES */
+@media screen and (min-width: 600px) {
+  .gaming__main-content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 800px) {
+  .gaming__main-content {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 900px) {
+  .gaming__main-container {
+    padding: 7.4rem 2.4rem 0rem 2.4rem;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .gaming__main-content {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
