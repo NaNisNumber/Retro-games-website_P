@@ -1,4 +1,5 @@
 .gaming__buy-game-btn {
+  cursor: pointer;
   background-color: #ff8c00;
   color: #1d1e4d;
   border-radius: 4px;

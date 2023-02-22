@@ -13,26 +13,82 @@ const ShopSection = ({
 }) => {
   const [genres, setGenres] = useState([]);
   const [filterByGenre, setFilterByGenre] = useState([]);
+  const [pageContents, setPageContents] = useState([]);
+  const [pageId, setPageId] = useState(0);
   const filtersToBeDisplayedRef = useRef(null);
   const filterContainerRef = useRef(null);
+  const numberOfPages = pageContents.length > 0 && pageContents.length;
+
+  const divideContentByLocalPages = () => {
+    let pages = [];
+    const gamesPerPage = 40;
+    const numberOfPages = Math.ceil(games.length / gamesPerPage);
+    let totalAddedOnPages = 0;
+
+    for (let i = 0; i < numberOfPages; i++) {
+      pages.push([]);
+      if (i === 0) {
+        totalAddedOnPages = 0;
+      } else {
+        // if the page is full then fill the next page with the items from where it left off
+        totalAddedOnPages = totalAddedOnPages + gamesPerPage - 1;
+      }
+      if (i > 0) totalAddedOnPages += 1; // add +1 to the iteration so that if ex: 2nd iteration ends at j===39 it won t start the 3rd iteration including again the 39;
+      for (let j = totalAddedOnPages; j < games.length; j++) {
+        const page = pages[i];
+        const game = games[j];
+        if (page.length != gamesPerPage) {
+          page.push(game);
+        }
+      }
+    }
+    setPageContents(pages);
+  };
+
+  useEffect(() => {
+    if (games.length > 0) {
+      divideContentByLocalPages();
+    }
+  }, [games]);
+
+  const goToPrevPage = () => {
+    if (pageId === 0) return;
+    setPageId((prevPageId) => prevPageId - 1);
+  };
+
+  const goToNextPage = () => {
+    if (pageId > numberOfPages - 2) return; // -2 instead -1 because of how react handles state changes
+    setPageId((prevPageId) => prevPageId + 1);
+  };
+
+  const changePageId = (e) => {
+    let currentInputValue = e.target.value;
+    if (currentInputValue >= 0 && currentInputValue <= 6) {
+      setPageId(+currentInputValue);
+    }
+  };
 
   const createGameCard = () => {
-    const gameCards = games.map((game) => {
-      const gameCover = game.cover.url.replace("t_thumb", "t_cover_big");
-      const gameName = game.name.toUpperCase();
-      return (
-        <div key={nanoid()} className="gaming__game-container">
-          <img className="gaming__game-img" src={gameCover}></img>
-          <p className="gaming__game-name">{gameName}</p>
-          <div className="gaming__game-actions-container">
-            <button className="gaming__about-game-btn">About Game</button>
-            <BuyBtn />
+    const gameCards =
+      pageContents.length > 0 &&
+      (pageId || pageId === 0) &&
+      pageContents[pageId].map((game) => {
+        const gameCover = game.cover.url.replace("t_thumb", "t_cover_big");
+        const gameName = game.name.toUpperCase();
+        return (
+          <div key={nanoid()} className="gaming__game-container">
+            <img className="gaming__game-img" src={gameCover}></img>
+            <p className="gaming__game-name">{gameName}</p>
+            <div className="gaming__game-actions-container">
+              <button className="gaming__about-game-btn">About Game</button>
+              <BuyBtn />
+            </div>
           </div>
-        </div>
-      );
-    });
+        );
+      });
     return gameCards;
   };
+
   const gameCards = createGameCard();
 
   useEffect(() => {
@@ -142,6 +198,25 @@ const ShopSection = ({
               {genresLists}
             </ul>
           </div>
+        </div>
+        <div className="gaming__mobile-pages">
+          <p className="gaming__mobile-pages-text">Go to page:</p>
+          <button onClick={goToPrevPage} className="gaming__mobile-pages-prev">
+            <ion-icon name="remove"></ion-icon>
+          </button>
+          <input
+            value={pageId.toString()}
+            onChange={(e) => {
+              changePageId(e);
+            }}
+            className="gaming__mobile-pages-input"
+            type={"number"}
+          ></input>
+          <button onClick={goToNextPage} className="gaming__mobile-pages-next">
+            <ion-icon name="add"></ion-icon>
+          </button>
+          <span className="gaming__mobile-pages-span">/</span>
+          <span className="gaming__mobile-pages-span">{numberOfPages - 1}</span>
         </div>
       </div>
 

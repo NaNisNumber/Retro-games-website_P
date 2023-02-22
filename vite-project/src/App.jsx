@@ -19,6 +19,7 @@ function App() {
   const [games, setGames] = useState([]);
   const [gameId, setGameId] = useState(null);
   const [openFilterBtnRef, setOpenFilterBtnRef] = useState(null);
+
   return (
     <BrowserRouter>
       <Routes>
