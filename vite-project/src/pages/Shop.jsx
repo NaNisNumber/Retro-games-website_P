@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ShopSection from "../components/shop-section/ShopSection";
 
 const Shop = ({

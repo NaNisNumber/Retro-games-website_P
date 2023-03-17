@@ -116,7 +116,7 @@ const FilterCriterion = ({
       };
     });
   }, [currentTab]);
-  console.log(tabWasClickedTwice);
+
   let typeOfFiltersList;
 
   switch (criterion) {

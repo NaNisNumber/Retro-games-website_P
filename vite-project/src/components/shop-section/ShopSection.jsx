@@ -26,6 +26,7 @@ const ShopSection = ({
   const [filters, setFilters] = useState({});
   const [pageId, setPageId] = useState(0);
   const [filteredGames, setFilteredGames] = useState([]);
+  const [filteredGamesBySearchBar, setFilteredGamesBySearchBar] = useState([]);
   const [filterInputIdentifiers, setFilterInputIdentifiers] = useState([]);
   const [filtersToBeDisplayedRefs, setFiltersToBeDisplayedRefs] = useState([]);
   const [menusContainer, setMenusContainer] = useState(null);
@@ -292,6 +293,7 @@ const ShopSection = ({
     ulListsAreOpened,
     tabWasClickedTwice,
     currentTab,
+    filteredGamesBySearchBar,
   ]);
 
   const toggleFilterPanel = () => {
@@ -364,12 +366,14 @@ const ShopSection = ({
       }
     }
 
-    if (gamesExist && !filtersExist) {
+    if (gamesExist && !filtersExist && filteredGamesBySearchBar.length === 0) {
       divideContentByLocalPages();
     } else if (filtersExist) {
       divideContentByLocalPages(filteredGames);
+    } else {
+      divideContentByLocalPages(filteredGamesBySearchBar);
     }
-  }, [filteredGames]);
+  }, [filteredGames, filteredGamesBySearchBar]);
 
   const goToPrevPage = () => {
     if (pageId === 0) return;
@@ -451,7 +455,10 @@ const ShopSection = ({
     >
       <div ref={filterContainerRef} className="gaming__filter-container">
         <div className="gaming__searchbar-container">
-          <SearchBar />
+          <SearchBar
+            games={games}
+            setFilteredGamesBySearchBar={setFilteredGamesBySearchBar}
+          />
           <button
             onClick={() => {
               openFilterBtnRef.current.classList.remove(
