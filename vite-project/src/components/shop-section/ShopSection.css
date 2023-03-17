@@ -3,6 +3,7 @@
   background-color: rgb(97, 96, 96);
   font-family: "Roboto";
 }
+
 .gaming__filter-container {
   transform: translateX(-100%);
   z-index: 3000;
@@ -12,9 +13,16 @@
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
-  width: 70%;
+  width: clamp(25rem, 50%, 60rem);
   height: 100vh;
   background-color: #1d1e4d;
+}
+.gaming__stars-container {
+  margin-bottom: 1rem;
+}
+.gaming__stars-container ion-icon {
+  color: #ffbf00;
+  font-size: 1.6rem;
 }
 .gaming__filters {
   display: grid;
@@ -23,9 +31,11 @@
   gap: 1rem;
 }
 .gaming__filter-inner-container {
+  cursor: pointer;
   position: relative;
   background-color: #fff;
 }
+
 .gaming__filter-name {
   border-radius: 4px;
   font-size: 1.6rem;
@@ -43,8 +53,8 @@
   background-color: silver;
   height: 15rem;
   width: 100%;
-  transition: 0.5s all;
   overflow: scroll;
+  transition: 0.35s all;
 }
 .gaming__filter-ul-visible > * {
   padding: 0 1rem;
@@ -99,6 +109,8 @@
   z-index: 999;
 }
 .gaming__main-container {
+  height: auto;
+  min-height: calc(100vh);
   padding: 2.8rem 2.4rem 7.4rem 2.4rem;
 }
 .gaming__main-content {
@@ -132,6 +144,7 @@
 }
 .gaming__game-actions-container {
   justify-content: center;
+  align-items: center;
   display: flex;
   gap: 1.4rem;
 }
@@ -150,6 +163,11 @@
 .gaming__about-game-btn:hover {
   background-color: silver;
   color: #1d1e4d;
+}
+.gaming__game-price {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #fff;
 }
 .gaming__mobile-pages {
   display: flex;
@@ -204,6 +222,12 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 0;
   padding: 0;
 }
+.gaming__filter-ul-hidden-delayed {
+  transition-delay: 0.35s;
+}
+.gaming__filter-ul-visible-delayed {
+  transition-delay: 0.35s;
+}
 .gaming__filter-opened {
   transform: translateX(0);
 }
@@ -221,6 +245,7 @@ input[type="number"]::-webkit-outer-spin-button {
   display: flex;
   align-items: center;
 }
+
 /* MEDIA QUERIES */
 @media screen and (min-width: 400px) {
   .gaming__main-content {
@@ -228,9 +253,6 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 @media screen and (min-width: 500px) {
-  .gaming__filter-container {
-    width: 50%;
-  }
   .gaming__main-content {
     width: 65%;
   }
@@ -248,13 +270,13 @@ input[type="number"]::-webkit-outer-spin-button {
   .gaming__main-content {
     grid-template-columns: repeat(3, 1fr);
   }
-  .gaming__filter-container {
-    width: 40%;
-  }
 }
 @media screen and (min-width: 900px) {
   .gaming__main-container {
-    padding: 7.4rem 2.4rem 0rem 2.4rem;
+    padding: 7.4rem 2.4rem;
+  }
+  .gaming__main-container {
+    min-height: calc(100vh - 5.8rem);
   }
 }
 

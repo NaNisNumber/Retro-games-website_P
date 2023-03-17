@@ -8,11 +8,7 @@ const SharedComponents = ({
   mainMenuIsClosed,
   setMainMenuIsClosed,
   filterPanelIsOpened,
-  setFilterPanelIsOpened,
-  setOpenFilterBtnRef,
 }) => {
-  const pathName = window.location.pathname;
-
   return (
     <Fragment>
       <div className="gaming__menus-container">
@@ -22,12 +18,10 @@ const SharedComponents = ({
           setMainMenuIsClosed={setMainMenuIsClosed}
         />
 
-        {pathName === "/shop" ? (
-          <OpenFilterBtn
-            setFilterPanelIsOpened={setFilterPanelIsOpened}
-            setOpenFilterBtnRef={setOpenFilterBtnRef}
-          />
-        ) : null}
+        {/* <OpenFilterBtn
+          setFilterPanelIsOpened={setFilterPanelIsOpened}
+          setOpenFilterBtnRef={setOpenFilterBtnRef}
+        /> */}
       </div>
       <NavBar
         mainMenuIsClosed={mainMenuIsClosed}
