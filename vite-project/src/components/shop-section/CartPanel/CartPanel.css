@@ -10,7 +10,7 @@
   padding: 1.5rem;
   width: clamp(25rem, 50%, 60rem);
   height: 100vh;
-  background-color: rgb(97, 96, 96);
+  background-color: #fff;
 }
 .gaming__cart-panel-close-btn {
   align-self: flex-start;

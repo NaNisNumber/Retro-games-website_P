@@ -5,12 +5,10 @@ import "../loginForm/LogInForm.css";
 import "../registrationForm/RegisterForm.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../../../../firebaseConfig";
-import { useNavigate } from "react-router-dom";
 
 const LogInForm = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const navigate = useNavigate();
 
   const login = async (e) => {
     e.preventDefault();
@@ -21,10 +19,6 @@ const LogInForm = () => {
         userPassword
       );
       const user = userLoginCredentials.user;
-      // if user loged in redirect him to /shop page
-      if (user) {
-        navigate("/shop");
-      }
     } catch (err) {
       console.log(err);
     }

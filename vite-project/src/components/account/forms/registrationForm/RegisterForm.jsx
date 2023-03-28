@@ -127,10 +127,6 @@ const RegisterForm = () => {
         userPassword
       );
       const user = userCredentials.user;
-      // if user created an account and is loged in redirect him to /shop page
-      if (user) {
-        navigate("/shop");
-      }
     } catch (error) {
       console.log(error.message);
     }

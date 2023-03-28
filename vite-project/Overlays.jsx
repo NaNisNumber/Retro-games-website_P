@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import GamesNotFoundOverlay from "./src/components/gamesNotFoundOverlay/GamesNotFoundOverlay";
 import RedirectToAccountOverlay from "./src/components/shop-section/redirectToAccountOverlay/RedirectToAccountOverlay";
+
 const Overlays = ({
   areInitialNumberOfPages,
   numberOfPages,

@@ -12,7 +12,7 @@ import Register from "./pages/Register";
 import Error from "./pages/Error";
 import Overlays from "../Overlays";
 import AboutGame from "./components/shop-section/aboutGame/AboutGame";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import auth from "./firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -162,13 +162,14 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="cart" element={<Cart />} />
             <Route path="contact" element={<Contact />} />
-            {!userIsLogedIn && (
-              <Route
-                path="login"
-                element={<Login userIsLogedIn={userIsLogedIn} />}
-              />
-            )}
-            {!userIsLogedIn && <Route path="register" element={<Register />} />}
+            <Route
+              path="login"
+              element={<Login userIsLogedIn={userIsLogedIn} />}
+            />
+            <Route
+              path="register"
+              element={<Register userIsLogedIn={userIsLogedIn} />}
+            />
             <Route path="*" element={<Error />} />
           </Route>
         </Routes>
