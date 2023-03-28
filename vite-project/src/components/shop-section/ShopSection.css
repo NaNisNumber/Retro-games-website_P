@@ -7,7 +7,7 @@
 .gaming__filter-container {
   transform: translateX(-100%);
   z-index: 3000;
-  transition: 0.5s ease-in-out;
+  transition: 0.5s 0.3s ease-in-out;
   position: fixed;
   top: 0;
   display: flex;
@@ -80,34 +80,7 @@
   font-size: 2.4rem;
   border-radius: 4px;
 }
-.gaming__close-filter {
-  align-self: flex-end;
-  cursor: pointer;
-  border-style: none;
-  background-color: #e43082;
-  padding: 0;
-  line-height: 0;
-  color: #fff;
-}
-.gaming__close-filter ion-icon {
-  font-size: 3.2rem;
-  color: #fff;
-}
-.gaming__cart {
-  cursor: pointer;
-  right: 2.4rem;
-  width: 4rem;
-  background-color: #fff;
-  color: #1d1e4d;
-  line-height: 0;
-  position: fixed;
-  bottom: 2.4rem;
-  border-style: none;
-  padding: 0.4rem;
-  font-size: 2.4rem;
-  border-radius: 4px;
-  z-index: 999;
-}
+
 .gaming__main-container {
   height: auto;
   min-height: calc(100vh);
@@ -236,7 +209,7 @@ input[type="number"]::-webkit-outer-spin-button {
   transform: translateX(calc(-100% - 2.4rem));
 }
 .gaming__display-open-btn {
-  transition: 0.5s 0.5s ease-in-out;
+  transition: 0.5s 0.8s ease-in-out;
   transform: translateX(0);
 }
 .gaming__searchbar-container {

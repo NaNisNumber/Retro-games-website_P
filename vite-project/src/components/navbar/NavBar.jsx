@@ -6,8 +6,14 @@ import RegisterBtn from "./GoToRegisterBtn/GoToRegisterBtn";
 import { NavLink } from "react-router-dom";
 import navLinkData from "./navLinkData";
 import { useLocation } from "react-router-dom";
+import LogOutBtn from "../account/logOutBtn/LogOutBtn";
 
-export default function NavBar({ mainMenuIsClosed, setMainMenuIsClosed }) {
+export default function NavBar({
+  mainMenuIsClosed,
+  setMainMenuIsClosed,
+  userIsLogedIn,
+  setBuyBtnActive,
+}) {
   const navbarRef = useRef(null);
   const navbarFromRef = navbarRef.current;
   const locationData = useLocation();
@@ -75,11 +81,17 @@ export default function NavBar({ mainMenuIsClosed, setMainMenuIsClosed }) {
 
   return (
     <nav ref={navbarRef} className={"gaming__navbar "}>
-      <div className="gaming__navbar-account">
-        <LogInBtn />
-        <RegisterBtn />
-      </div>
-
+      {!userIsLogedIn && (
+        <div className="gaming__navbar-account">
+          <LogInBtn />
+          <RegisterBtn />
+        </div>
+      )}
+      {userIsLogedIn && (
+        <div className="gaming__navbar-account">
+          <LogOutBtn setBuyBtnActive={setBuyBtnActive} />
+        </div>
+      )}
       {displayCloseBtn}
       <ul>{navLinks}</ul>
       <hr></hr>

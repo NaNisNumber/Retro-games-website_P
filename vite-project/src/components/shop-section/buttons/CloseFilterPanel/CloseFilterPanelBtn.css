@@ -1,0 +1,13 @@
+.gaming__close-filter {
+  align-self: flex-end;
+  cursor: pointer;
+  border-style: none;
+  background-color: #e43082;
+  padding: 0;
+  line-height: 0;
+  color: #fff;
+}
+.gaming__close-filter ion-icon {
+  font-size: 3.2rem;
+  color: #fff;
+}

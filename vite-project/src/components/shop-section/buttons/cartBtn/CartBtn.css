@@ -1,0 +1,23 @@
+.gaming__cart {
+  cursor: pointer;
+  right: 2.4rem;
+  width: 4rem;
+  background-color: #fff;
+  color: #1d1e4d;
+  line-height: 0;
+  position: fixed;
+  bottom: 2.4rem;
+  border-style: none;
+  padding: 0.4rem;
+  font-size: 2.4rem;
+  border-radius: 4px;
+  z-index: 999;
+  transition: 0.5s 0.8s all;
+}
+/* ACTION CLASSES */
+
+.hide-cart-btn {
+  transition: 0.5s ease-in-out all;
+  right: 0;
+  transform: translate(100%);
+}

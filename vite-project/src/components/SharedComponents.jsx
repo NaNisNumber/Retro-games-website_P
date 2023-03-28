@@ -8,6 +8,8 @@ const SharedComponents = ({
   mainMenuIsClosed,
   setMainMenuIsClosed,
   filterPanelIsOpened,
+  userIsLogedIn,
+  setBuyBtnActive,
 }) => {
   return (
     <Fragment>
@@ -17,13 +19,10 @@ const SharedComponents = ({
           mainMenuIsClosed={mainMenuIsClosed}
           setMainMenuIsClosed={setMainMenuIsClosed}
         />
-
-        {/* <OpenFilterBtn
-          setFilterPanelIsOpened={setFilterPanelIsOpened}
-          setOpenFilterBtnRef={setOpenFilterBtnRef}
-        /> */}
       </div>
       <NavBar
+        setBuyBtnActive={setBuyBtnActive}
+        userIsLogedIn={userIsLogedIn}
         mainMenuIsClosed={mainMenuIsClosed}
         setMainMenuIsClosed={setMainMenuIsClosed}
       />

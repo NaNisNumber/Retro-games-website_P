@@ -5,25 +5,28 @@ import "../loginForm/LogInForm.css";
 import "../registrationForm/RegisterForm.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../../../../firebaseConfig";
+import { useNavigate } from "react-router-dom";
+
 const LogInForm = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const navigate = useNavigate();
 
   const login = async (e) => {
     e.preventDefault();
     try {
-      const userLogin = await signInWithEmailAndPassword(
+      const userLoginCredentials = await signInWithEmailAndPassword(
         auth,
         userEmail,
         userPassword
       );
-      userLogin.then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-      });
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      const user = userLoginCredentials.user;
+      // if user loged in redirect him to /shop page
+      if (user) {
+        navigate("/shop");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

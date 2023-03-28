@@ -1,5 +1,6 @@
 import { React, useEffect } from "react";
 import { debounce } from "../../../../../Assets/debounce/debounce";
+
 const PasswordInput = ({ validatePassword, userPassword, setUserPassword }) => {
   const debouncePasswordInput = debounce((e) => {
     setUserPassword(e.target.value);
@@ -9,6 +10,7 @@ const PasswordInput = ({ validatePassword, userPassword, setUserPassword }) => {
       validatePassword(userPassword);
     }
   }, [userPassword]);
+
   return (
     <input
       onChange={(e) => {

@@ -5,7 +5,6 @@ const Shop = ({
   filterPanelIsOpened,
   setFilterPanelIsOpened,
   games,
-  setGames,
   openFilterBtnRef,
   setOpenFilterBtnRef,
   pageContents,
@@ -15,6 +14,10 @@ const Shop = ({
   setDisplayOverlayGamesNotFound,
   areInitialNumberOfPages,
   setAreInitialNumberOfPages,
+  setGameId,
+  setCartPanelIsOpened,
+  cartPanelIsOpened,
+  setBuyBtnActive,
 }) => {
   return (
     <ShopSection
@@ -24,13 +27,16 @@ const Shop = ({
       openFilterBtnRef={openFilterBtnRef}
       setOpenFilterBtnRef={setOpenFilterBtnRef}
       games={games}
-      setGames={setGames}
       filterPanelIsOpened={filterPanelIsOpened}
       setFilterPanelIsOpened={setFilterPanelIsOpened}
       displayOverlayGamesNotFound={displayOverlayGamesNotFound}
       setDisplayOverlayGamesNotFound={setDisplayOverlayGamesNotFound}
       areInitialNumberOfPages={areInitialNumberOfPages}
       setAreInitialNumberOfPages={setAreInitialNumberOfPages}
+      setGameId={setGameId}
+      setCartPanelIsOpened={setCartPanelIsOpened}
+      cartPanelIsOpened={cartPanelIsOpened}
+      setBuyBtnActive={setBuyBtnActive}
     />
   );
 };

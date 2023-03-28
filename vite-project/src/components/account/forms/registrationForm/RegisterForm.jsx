@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EmailInput from "../../Inputs/EmailInput/EmailInput";
 import PasswordInput from "../../Inputs/PasswordInput/PasswordInput";
-
+import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../../../firebaseConfig";
 import "./RegisterForm.css";
@@ -18,11 +18,13 @@ const RegisterForm = () => {
   const [validationFragments, setValidationFragments] = useState(
     passwordValidationFragments
   );
+  const navigate = useNavigate();
   const callSetValidationFragments = (validationFragment, boolean) => {
     setValidationFragments((prevState) => {
       return { ...prevState, [validationFragment]: boolean };
     });
   };
+
   const validatePassword = (userPassword) => {
     const specialChars = [
       "!",
@@ -119,11 +121,16 @@ const RegisterForm = () => {
     }
     e.preventDefault();
     try {
-      const user = await createUserWithEmailAndPassword(
+      const userCredentials = await createUserWithEmailAndPassword(
         auth,
         userEmail,
         userPassword
       );
+      const user = userCredentials.user;
+      // if user created an account and is loged in redirect him to /shop page
+      if (user) {
+        navigate("/shop");
+      }
     } catch (error) {
       console.log(error.message);
     }

@@ -1,0 +1,17 @@
+.gaming__redirect-to-register-btn:link,
+.gaming__redirect-to-register-btn:visited {
+  font-family: "Roboto";
+  border-style: none;
+  background-color: #1d1e4d;
+  padding: 0.4rem 1.6rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 1.4rem;
+  transition: 0.3s ease-out all;
+  text-decoration: none;
+  color: #fff;
+}
+.gaming__redirect-to-register-btn:active,
+.gaming__redirect-to-register-btn:hover {
+  background-color: rgba(29, 30, 77, 0.7);
+}

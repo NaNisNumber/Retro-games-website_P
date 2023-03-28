@@ -1,0 +1,24 @@
+.gaming__current-game-selections-container {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+.gaming__current-game-selection-btn {
+  color: #fff;
+  background-color: rgb(29, 30, 77);
+  border-style: none;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.6rem;
+  border-radius: 4px;
+  transition: 0.3s all;
+  cursor: pointer;
+}
+
+/* ACTION CLASSES */
+.selected-btn {
+  background-color: #e43082;
+}

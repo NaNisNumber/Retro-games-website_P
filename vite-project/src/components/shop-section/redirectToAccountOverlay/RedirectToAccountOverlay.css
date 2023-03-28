@@ -1,0 +1,37 @@
+.gaming__redirect-to-account-overlay-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  width: 90%;
+  position: fixed;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  padding: 1.6rem;
+  z-index: 6000;
+}
+.gaming__redirect-to-account-text {
+  font-size: 1.6rem;
+  color: #1d1e4d;
+  text-align: center;
+  margin-bottom: 1.6rem;
+  font-weight: 500;
+}
+.gaming__redirect-to-account-overlay-btns-container {
+  display: flex;
+  gap: 1.6rem;
+  justify-content: center;
+}
+
+.gaming__redirect-to-account-backdrop-shadow {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  padding: 2.4rem;
+  background-color: silver;
+  animation: moveOverlay 0.5s ease-in-out;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  z-index: 5000;
+}

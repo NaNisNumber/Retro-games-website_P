@@ -1,17 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
 import { nanoid } from "nanoid";
 import SearchBar from "./searchbar/SearchBar";
 import BuyBtn from "./buttons/buy-button/BuyBtn";
 import OpenFilterBtn from "./buttons/open-filter-btn/OpenFilterBtn";
 import FilterCriterion from "./filterCriterion/FilterCriterion";
 import "./ShopSection.css";
+import CartBtn from "./buttons/cartBtn/CartBtn";
+import CartPanel from "./CartPanel/CartPanel";
+import CloseFilterPanelBtn from "./buttons/CloseFilterPanel/CloseFilterPanelBtn";
+
 const ShopSection = ({
   filterPanelIsOpened,
   setFilterPanelIsOpened,
   games,
-  setGames,
-  setGameId,
   openFilterBtnRef,
   setOpenFilterBtnRef,
   pageContents,
@@ -21,6 +24,10 @@ const ShopSection = ({
   setDisplayOverlayGamesNotFound,
   areInitialNumberOfPages,
   setAreInitialNumberOfPages,
+  setGameId,
+  setCartPanelIsOpened,
+  cartPanelIsOpened,
+  setBuyBtnActive,
 }) => {
   const [genres, setGenres] = useState([]);
   const [filters, setFilters] = useState({});
@@ -43,18 +50,8 @@ const ShopSection = ({
   });
   const [numOfOpenLists, setNumOfOpenLists] = useState(1);
   const filterContainerRef = useRef(null);
-  const gamesCopy = [...games];
   const ratings = ["1 star", "2 stars", "3 stars", "4 stars", "5 stars"];
   const prices = ["10$", "15$", "20$", "22$"];
-
-  useEffect(() => {
-    const retrieveGameData = async () => {
-      const response = await fetch("http://localhost:5000");
-      const games = await response.json();
-      setGames(games);
-    };
-    retrieveGameData();
-  }, []);
 
   useEffect(() => {
     const retrieveGameGenres = async () => {
@@ -106,35 +103,6 @@ const ShopSection = ({
   const genresLists = createFilterLists(genres, "genre");
   const ratingLists = createFilterLists(ratings, "rating");
   const priceLists = createFilterLists(prices, "price");
-
-  const createLists = () => {
-    for (let i = 0; i < gamesCopy.length; i++) {
-      const game = gamesCopy[i];
-      const gameRating = game.rating;
-
-      if (gameRating <= 20) {
-        game.starRating = "1 star";
-        game.price = "10$";
-      } else if (gameRating > 20 && gameRating <= 40) {
-        game.starRating = "2 stars";
-        game.price = "10$";
-      } else if (gameRating > 40 && gameRating <= 60) {
-        game.starRating = "3 stars";
-        game.price = "15$";
-      } else if (gameRating > 60 && gameRating <= 80) {
-        game.starRating = "4 stars";
-        game.price = "20$";
-      } else {
-        game.starRating = "5 stars";
-        game.price = "22$";
-      }
-    }
-  };
-
-  gamesCopy.length > 0 && createLists();
-  useEffect(() => {
-    setGames(gamesCopy);
-  }, []);
 
   const updateFilter = (e) => {
     setPageId(0);
@@ -413,8 +381,17 @@ const ShopSection = ({
             <img className="gaming__game-img" src={gameCover}></img>
             <p className="gaming__game-name">{gameName}</p>
             <div className="gaming__game-actions-container">
-              <button className="gaming__about-game-btn">About Game</button>
-              <BuyBtn />
+              <Link to={`/shop/${game.id}`}>
+                <button
+                  onClick={() => {
+                    setGameId(game.id);
+                  }}
+                  className="gaming__about-game-btn"
+                >
+                  About Game
+                </button>
+              </Link>
+              <BuyBtn setBuyBtnActive={setBuyBtnActive} />
               <span className="gaming__game-price">{gamePrice}</span>
             </div>
           </div>
@@ -459,21 +436,10 @@ const ShopSection = ({
             games={games}
             setFilteredGamesBySearchBar={setFilteredGamesBySearchBar}
           />
-          <button
-            onClick={() => {
-              openFilterBtnRef.current.classList.remove(
-                "gaming__hide-open-btn"
-              );
-              openFilterBtnRef.current.classList.add(
-                "gaming__display-open-btn"
-              );
-
-              setFilterPanelIsOpened(false);
-            }}
-            className="gaming__close-filter"
-          >
-            <ion-icon name="close"></ion-icon>
-          </button>
+          <CloseFilterPanelBtn
+            openFilterBtnRef={openFilterBtnRef}
+            setFilterPanelIsOpened={setFilterPanelIsOpened}
+          />
         </div>
         <p>Filter By:</p>
         <div className="gaming__filters">
@@ -543,11 +509,14 @@ const ShopSection = ({
           <span className="gaming__mobile-pages-span">{numberOfPages - 1}</span>
         </div>
       </div>
-
-      <button className="gaming__cart">
-        <ion-icon name="cart"></ion-icon>
-      </button>
-
+      <CartPanel
+        setCartPanelIsOpened={setCartPanelIsOpened}
+        cartPanelIsOpened={cartPanelIsOpened}
+      />
+      <CartBtn
+        cartPanelIsOpened={cartPanelIsOpened}
+        setCartPanelIsOpened={setCartPanelIsOpened}
+      />
       <main className="gaming__main-container">
         <div className="gaming__main-content">{gameCards}</div>
       </main>

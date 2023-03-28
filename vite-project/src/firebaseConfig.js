@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-// TODO: Replace the following with your app's Firebase project configuration
+import { getDatabase, ref, set, onValue } from "firebase/database";
+
 const firebaseConfig = {
   apiKey: "AIzaSyB4xd0DDFMNya4WYjEhjsKUUNmC8xuzpSI",
   authDomain: "fir-frontend-33ada.firebaseapp.com",
@@ -8,8 +9,13 @@ const firebaseConfig = {
   storageBucket: "fir-frontend-33ada.appspot.com",
   messagingSenderId: "42334799513",
   appId: "1:42334799513:web:a9201fecda715da1a51a08",
+  databaseURL:
+    "https://fir-frontend-33ada-default-rtdb.europe-west1.firebasedatabase.app",
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const database = getDatabase(app);
+
 export default auth;
+export { database, ref, set, onValue };
