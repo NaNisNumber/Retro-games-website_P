@@ -1,7 +1,14 @@
 import React, { Fragment, useRef } from "react";
 import "./SelectionContainer.css";
 import BuyBtn from "../../buttons/buy-button/BuyBtn";
-const SelectionContainer = ({ setSelectedTab }) => {
+const SelectionContainer = ({
+  userIsLogedIn,
+  setSelectedTab,
+  gamesForCart,
+  setGamesForCart,
+  game,
+  setBuyBtnActive,
+}) => {
   const aboutBtnRef = useRef(null);
   const screenshotsBtnRef = useRef(null);
 
@@ -30,7 +37,13 @@ const SelectionContainer = ({ setSelectedTab }) => {
         >
           Screenshots
         </button>
-        <BuyBtn />
+        <BuyBtn
+          userIsLogedIn={userIsLogedIn}
+          setBuyBtnActive={setBuyBtnActive}
+          game={game}
+          gamesForCart={gamesForCart}
+          setGamesForCart={setGamesForCart}
+        />
       </div>
     </Fragment>
   );

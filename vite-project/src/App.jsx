@@ -30,6 +30,7 @@ function App() {
   const [gameId, setGameId] = useState(null);
   const [userIsLogedIn, setUserIsLogedIn] = useState(false);
   const [buyBtnActive, setBuyBtnActive] = useState(false);
+  const [gamesForCart, setGamesForCart] = useState([]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -142,6 +143,9 @@ function App() {
                   setCartPanelIsOpened={setCartPanelIsOpened}
                   cartPanelIsOpened={cartPanelIsOpened}
                   setBuyBtnActive={setBuyBtnActive}
+                  gamesForCart={gamesForCart}
+                  setGamesForCart={setGamesForCart}
+                  userIsLogedIn={userIsLogedIn}
                 />
               }
             ></Route>
@@ -150,10 +154,14 @@ function App() {
               path="/shop/:gameId"
               element={
                 <AboutGame
+                  userIsLogedIn={userIsLogedIn}
                   cartPanelIsOpened={cartPanelIsOpened}
                   setCartPanelIsOpened={setCartPanelIsOpened}
                   games={games}
                   gameId={gameId}
+                  gamesForCart={gamesForCart}
+                  setGamesForCart={setGamesForCart}
+                  setBuyBtnActive={setBuyBtnActive}
                 />
               }
             ></Route>

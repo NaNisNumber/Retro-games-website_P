@@ -18,6 +18,9 @@ const Shop = ({
   setCartPanelIsOpened,
   cartPanelIsOpened,
   setBuyBtnActive,
+  gamesForCart,
+  setGamesForCart,
+  userIsLogedIn,
 }) => {
   return (
     <ShopSection
@@ -37,6 +40,9 @@ const Shop = ({
       setCartPanelIsOpened={setCartPanelIsOpened}
       cartPanelIsOpened={cartPanelIsOpened}
       setBuyBtnActive={setBuyBtnActive}
+      gamesForCart={gamesForCart}
+      setGamesForCart={setGamesForCart}
+      userIsLogedIn={userIsLogedIn}
     />
   );
 };

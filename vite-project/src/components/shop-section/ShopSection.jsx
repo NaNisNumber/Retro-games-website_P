@@ -28,6 +28,9 @@ const ShopSection = ({
   setCartPanelIsOpened,
   cartPanelIsOpened,
   setBuyBtnActive,
+  gamesForCart,
+  setGamesForCart,
+  userIsLogedIn,
 }) => {
   const [genres, setGenres] = useState([]);
   const [filters, setFilters] = useState({});
@@ -49,6 +52,7 @@ const ShopSection = ({
     Price: false,
   });
   const [numOfOpenLists, setNumOfOpenLists] = useState(1);
+
   const filterContainerRef = useRef(null);
   const ratings = ["1 star", "2 stars", "3 stars", "4 stars", "5 stars"];
   const prices = ["10$", "15$", "20$", "22$"];
@@ -391,7 +395,13 @@ const ShopSection = ({
                   About Game
                 </button>
               </Link>
-              <BuyBtn setBuyBtnActive={setBuyBtnActive} />
+              <BuyBtn
+                userIsLogedIn={userIsLogedIn}
+                game={game}
+                gamesForCart={gamesForCart}
+                setGamesForCart={setGamesForCart}
+                setBuyBtnActive={setBuyBtnActive}
+              />
               <span className="gaming__game-price">{gamePrice}</span>
             </div>
           </div>
@@ -510,10 +520,13 @@ const ShopSection = ({
         </div>
       </div>
       <CartPanel
+        gamesForCart={gamesForCart}
+        setGamesForCart={setGamesForCart}
         setCartPanelIsOpened={setCartPanelIsOpened}
         cartPanelIsOpened={cartPanelIsOpened}
       />
       <CartBtn
+        gamesForCart={gamesForCart}
         cartPanelIsOpened={cartPanelIsOpened}
         setCartPanelIsOpened={setCartPanelIsOpened}
       />

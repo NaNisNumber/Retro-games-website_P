@@ -6,14 +6,18 @@ import CartPanel from "../CartPanel/CartPanel";
 import { nanoid } from "nanoid";
 
 const AboutGame = ({
+  userIsLogedIn,
   games,
   gameId,
   cartPanelIsOpened,
   setCartPanelIsOpened,
+  gamesForCart,
+  setGamesForCart,
+  setBuyBtnActive,
 }) => {
   const findCurrentGame = () => {
     const [selectedTab, setSelectedTab] = useState("about");
-    console.log(cartPanelIsOpened);
+
     let currentGame;
     const path = window.location.pathname;
     const splitedPath = path.split("/");
@@ -90,7 +94,14 @@ const AboutGame = ({
         <div className="gaming__current-game-details-container">
           <img className="gaming__current-game-img" src={gameCoverImg}></img>
           <div className="gaming__current-game-overlay"></div>
-          <SelectionContainer setSelectedTab={setSelectedTab} />
+          <SelectionContainer
+            userIsLogedIn={userIsLogedIn}
+            game={currentGame}
+            setBuyBtnActive={setBuyBtnActive}
+            gamesForCart={gamesForCart}
+            setGamesForCart={setGamesForCart}
+            setSelectedTab={setSelectedTab}
+          />
         </div>
         {selectedTab === "about" && (
           <div className="gaming__current-game-about-container">
@@ -141,6 +152,7 @@ const AboutGame = ({
     <section className="gaming__current-game-details-section">
       <main>{findCurrentGame()}</main>
       <CartPanel
+        gamesForCart={gamesForCart}
         cartPanelIsOpened={cartPanelIsOpened}
         setCartPanelIsOpened={setCartPanelIsOpened}
       />
