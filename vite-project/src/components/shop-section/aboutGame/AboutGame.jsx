@@ -152,11 +152,13 @@ const AboutGame = ({
     <section className="gaming__current-game-details-section">
       <main>{findCurrentGame()}</main>
       <CartPanel
+        setGamesForCart={setGamesForCart}
         gamesForCart={gamesForCart}
         cartPanelIsOpened={cartPanelIsOpened}
         setCartPanelIsOpened={setCartPanelIsOpened}
       />
       <CartBtn
+        gamesForCart={gamesForCart}
         cartPanelIsOpened={cartPanelIsOpened}
         setCartPanelIsOpened={setCartPanelIsOpened}
       />

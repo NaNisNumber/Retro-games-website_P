@@ -1,7 +1,6 @@
 import { useState } from "react";
 import EmailInput from "../../Inputs/EmailInput/EmailInput";
 import PasswordInput from "../../Inputs/PasswordInput/PasswordInput";
-import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../../../firebaseConfig";
 import "./RegisterForm.css";
@@ -18,7 +17,7 @@ const RegisterForm = () => {
   const [validationFragments, setValidationFragments] = useState(
     passwordValidationFragments
   );
-  const navigate = useNavigate();
+
   const callSetValidationFragments = (validationFragment, boolean) => {
     setValidationFragments((prevState) => {
       return { ...prevState, [validationFragment]: boolean };
