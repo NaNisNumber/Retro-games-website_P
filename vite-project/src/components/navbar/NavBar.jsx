@@ -13,6 +13,7 @@ export default function NavBar({
   setMainMenuIsClosed,
   userIsLogedIn,
   setBuyBtnActive,
+  setGamesForCart,
 }) {
   const navbarRef = useRef(null);
   const navbarFromRef = navbarRef.current;
@@ -89,7 +90,10 @@ export default function NavBar({
       )}
       {userIsLogedIn && (
         <div className="gaming__navbar-account">
-          <LogOutBtn setBuyBtnActive={setBuyBtnActive} />
+          <LogOutBtn
+            setGamesForCart={setGamesForCart}
+            setBuyBtnActive={setBuyBtnActive}
+          />
         </div>
       )}
       {displayCloseBtn}

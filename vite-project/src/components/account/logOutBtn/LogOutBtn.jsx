@@ -3,10 +3,15 @@ import "./LogOutBtn.css";
 import { signOut } from "firebase/auth";
 import auth from "../../../firebaseConfig";
 
-const LogOutBtn = ({ setBuyBtnActive }) => {
+const LogOutBtn = ({ setBuyBtnActive, setGamesForCart }) => {
   const logOut = () => {
     setBuyBtnActive(false);
-    signOut(auth).catch((error) => {});
+
+    signOut(auth)
+      .then(() => {
+        setGamesForCart([]);
+      })
+      .catch((error) => {});
   };
 
   return (

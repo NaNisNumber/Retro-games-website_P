@@ -17,5 +17,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
 
+function writeUserData(userId, gamesFromCart) {
+  set(ref(database, "users/" + userId), {
+    gamesFromCart: gamesFromCart,
+  });
+}
+
 export default auth;
-export { database, ref, set, onValue };
+export { writeUserData, database, ref, set, onValue };

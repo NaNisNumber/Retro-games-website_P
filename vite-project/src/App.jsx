@@ -15,6 +15,7 @@ import AboutGame from "./components/shop-section/aboutGame/AboutGame";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import auth from "./firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
+import { writeUserData } from "./firebaseConfig";
 
 function App() {
   const [mainMenuIsClosed, setMainMenuIsClosed] = useState(true);
@@ -36,8 +37,6 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUserIsLogedIn(true);
-
-        const uid = user.uid;
       } else {
         setUserIsLogedIn(false);
       }
@@ -54,6 +53,14 @@ function App() {
     };
     retrieveGameData();
   }, []);
+
+  useEffect(() => {
+    if (!userIsLogedIn) return;
+    const uid = auth.currentUser.uid;
+    console.log(gamesForCart);
+
+    writeUserData(uid, JSON.stringify(gamesForCart));
+  }, [gamesForCart]);
 
   const createLists = () => {
     for (let i = 0; i < gamesCopy.length; i++) {
@@ -109,6 +116,7 @@ function App() {
                 filterPanelIsOpened={filterPanelIsOpened}
                 mainMenuIsClosed={mainMenuIsClosed}
                 setMainMenuIsClosed={setMainMenuIsClosed}
+                setGamesForCart={setGamesForCart}
               />
             }
           >

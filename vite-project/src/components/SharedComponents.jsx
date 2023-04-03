@@ -1,8 +1,8 @@
-import { React, Fragment, useRef } from "react";
+import { React, Fragment } from "react";
 import NavBar from "./navbar/NavBar";
 import OpenNavBtn from "./open-nav-btn/OpenNavBtn";
 import { Outlet } from "react-router-dom";
-import OpenFilterBtn from "./shop-section/buttons/open-filter-btn/OpenFilterBtn";
+
 import "./SharedComponents.css";
 const SharedComponents = ({
   mainMenuIsClosed,
@@ -10,6 +10,7 @@ const SharedComponents = ({
   filterPanelIsOpened,
   userIsLogedIn,
   setBuyBtnActive,
+  setGamesForCart,
 }) => {
   return (
     <Fragment>
@@ -25,6 +26,7 @@ const SharedComponents = ({
         userIsLogedIn={userIsLogedIn}
         mainMenuIsClosed={mainMenuIsClosed}
         setMainMenuIsClosed={setMainMenuIsClosed}
+        setGamesForCart={setGamesForCart}
       />
       <Outlet />
     </Fragment>

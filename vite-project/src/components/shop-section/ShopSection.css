@@ -17,10 +17,10 @@
   height: 100vh;
   background-color: #1d1e4d;
 }
-.gaming__stars-container {
+.gaming__game-fav-container {
   margin-bottom: 1rem;
 }
-.gaming__stars-container ion-icon {
+.gaming__game-fav-container ion-icon {
   color: #ffbf00;
   font-size: 1.6rem;
 }

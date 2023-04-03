@@ -1,6 +1,7 @@
-.gaming__cart {
+.gaming__cart-btn {
   cursor: pointer;
-  right: 2.4rem;
+  right: 0;
+  transform: translate(100%);
   width: 4rem;
   background-color: #fff;
   color: #1d1e4d;
@@ -12,7 +13,6 @@
   font-size: 2.4rem;
   border-radius: 4px;
   z-index: 999;
-  transition: 0.5s 0.8s all;
 }
 /* ACTION CLASSES */
 
@@ -20,4 +20,10 @@
   transition: 0.5s ease-in-out all;
   right: 0;
   transform: translate(100%);
+}
+
+.display-cart-btn {
+  transition: 0.5s 0.8s all;
+  right: 2.4rem;
+  transform: translate(0);
 }

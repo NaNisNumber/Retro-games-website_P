@@ -8,8 +8,10 @@ const CartBtn = ({ cartPanelIsOpened, setCartPanelIsOpened, gamesForCart }) => {
     if (!cartBtnRef.current) return;
     if (cartPanelIsOpened || gamesForCart.length === 0) {
       cartBtnRef.current.classList.add("hide-cart-btn");
+      cartBtnRef.current.classList.remove("display-cart-btn");
     } else {
       cartBtnRef.current.classList.remove("hide-cart-btn");
+      cartBtnRef.current.classList.add("display-cart-btn");
     }
   };
   hideCartBtn();
@@ -19,7 +21,7 @@ const CartBtn = ({ cartPanelIsOpened, setCartPanelIsOpened, gamesForCart }) => {
       onClick={() => {
         setCartPanelIsOpened(true);
       }}
-      className="gaming__cart"
+      className="gaming__cart-btn"
     >
       <ion-icon name="cart"></ion-icon>
     </button>

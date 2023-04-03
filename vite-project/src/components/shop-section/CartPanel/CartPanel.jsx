@@ -1,6 +1,9 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./CartPanel.css";
 import { nanoid } from "nanoid";
+import { ref, database, onValue } from "../../../firebaseConfig";
+import auth from "../../../firebaseConfig";
+
 const CartPanel = ({
   setCartPanelIsOpened,
   cartPanelIsOpened,
@@ -9,6 +12,22 @@ const CartPanel = ({
 }) => {
   const cartPanelRef = useRef(null);
   let totalPrice = 0;
+
+  useEffect(() => {
+    const uid = auth.currentUser && auth.currentUser.uid;
+    const userRef = ref(database, "users/" + uid);
+    onValue(userRef, (snapshot) => {
+      const data = snapshot.val();
+      const gamesCartDbStr = data && data.gamesFromCart;
+      const gamesCartDbArr = JSON.parse(gamesCartDbStr);
+      console.log(gamesForCart);
+
+      if (data) {
+        setGamesForCart(gamesCartDbArr);
+      }
+    });
+  }, []);
+
   const cartItems = gamesForCart.map((game) => {
     const gameName = game.name;
     const gamePrice = game.price;
@@ -41,7 +60,8 @@ const CartPanel = ({
               quantity:<span className="gaming__cart-panel-span">1</span>
             </p>
             <p className="gaming__cart-panel-item-text">
-              price:<span className="gaming__cart-panel-span">{gamePrice}</span>
+              price:
+              <span className="gaming__cart-panel-span">{gamePrice}</span>
             </p>
             <button
               onClick={(e) => {

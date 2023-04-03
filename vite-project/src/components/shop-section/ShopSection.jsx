@@ -381,7 +381,7 @@ const ShopSection = ({
 
         return (
           <div key={nanoid()} className="gaming__game-container">
-            <div className="gaming__stars-container">{starIcons}</div>
+            <div className="gaming__game-fav-container">{starIcons}</div>
             <img className="gaming__game-img" src={gameCover}></img>
             <p className="gaming__game-name">{gameName}</p>
             <div className="gaming__game-actions-container">
@@ -519,17 +519,21 @@ const ShopSection = ({
           <span className="gaming__mobile-pages-span">{numberOfPages - 1}</span>
         </div>
       </div>
-      <CartPanel
-        gamesForCart={gamesForCart}
-        setGamesForCart={setGamesForCart}
-        setCartPanelIsOpened={setCartPanelIsOpened}
-        cartPanelIsOpened={cartPanelIsOpened}
-      />
-      <CartBtn
-        gamesForCart={gamesForCart}
-        cartPanelIsOpened={cartPanelIsOpened}
-        setCartPanelIsOpened={setCartPanelIsOpened}
-      />
+      {userIsLogedIn && (
+        <CartPanel
+          gamesForCart={gamesForCart}
+          setGamesForCart={setGamesForCart}
+          setCartPanelIsOpened={setCartPanelIsOpened}
+          cartPanelIsOpened={cartPanelIsOpened}
+        />
+      )}
+      {userIsLogedIn && (
+        <CartBtn
+          gamesForCart={gamesForCart}
+          cartPanelIsOpened={cartPanelIsOpened}
+          setCartPanelIsOpened={setCartPanelIsOpened}
+        />
+      )}
       <main className="gaming__main-container">
         <div className="gaming__main-content">{gameCards}</div>
       </main>

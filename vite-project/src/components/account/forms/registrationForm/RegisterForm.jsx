@@ -125,7 +125,6 @@ const RegisterForm = () => {
         userEmail,
         userPassword
       );
-      const user = userCredentials.user;
     } catch (error) {
       console.log(error.message);
     }

@@ -1,6 +1,6 @@
 import "./HeroSection.css";
-import OpenNavBtn from "../open-nav-btn/OpenNavBtn";
-export default function HeroSection(props) {
+
+export default function HeroSection() {
   return (
     <section className="gaming__hero-section">
       <div className="gaming__hero-container">
