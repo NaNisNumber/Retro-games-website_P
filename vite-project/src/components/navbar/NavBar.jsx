@@ -14,6 +14,9 @@ export default function NavBar({
   userIsLogedIn,
   setBuyBtnActive,
   setGamesForCart,
+  setWishlistBtnActive,
+  wishList,
+  setWishList,
 }) {
   const navbarRef = useRef(null);
   const navbarFromRef = navbarRef.current;
@@ -66,7 +69,10 @@ export default function NavBar({
         to={`${linkData.destination}`}
       >
         <ion-icon name={`${linkData.iconName}`}></ion-icon>
-        <li>{`${linkData.text}`}</li>
+        <li>
+          {linkData.text}{" "}
+          {linkData.text === "Wish List" ? `(${wishList.length})` : null}
+        </li>
       </NavLink>
     );
   });
@@ -93,6 +99,8 @@ export default function NavBar({
           <LogOutBtn
             setGamesForCart={setGamesForCart}
             setBuyBtnActive={setBuyBtnActive}
+            setWishlistBtnActive={setWishlistBtnActive}
+            setWishList={setWishList}
           />
         </div>
       )}

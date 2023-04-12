@@ -9,24 +9,25 @@ const CartPanel = ({
   cartPanelIsOpened,
   gamesForCart,
   setGamesForCart,
+  userIsLogedIn,
 }) => {
   const cartPanelRef = useRef(null);
   let totalPrice = 0;
 
   useEffect(() => {
+    if (!userIsLogedIn) return;
     const uid = auth.currentUser && auth.currentUser.uid;
     const userRef = ref(database, "users/" + uid);
     onValue(userRef, (snapshot) => {
       const data = snapshot.val();
-      const gamesCartDbStr = data && data.gamesFromCart;
+      const gamesCartDbStr = data && data.gamesForCart;
       const gamesCartDbArr = JSON.parse(gamesCartDbStr);
-      console.log(gamesForCart);
 
-      if (data) {
+      if (data && data.gamesForCart) {
         setGamesForCart(gamesCartDbArr);
       }
     });
-  }, []);
+  }, [userIsLogedIn]);
 
   const cartItems = gamesForCart.map((game) => {
     const gameName = game.name;

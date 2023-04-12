@@ -18,11 +18,25 @@
   background-color: #1d1e4d;
 }
 .gaming__game-fav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1rem;
 }
-.gaming__game-fav-container ion-icon {
+.gaming__stars-container ion-icon {
   color: #ffbf00;
   font-size: 1.6rem;
+}
+.gaming__heart-btn {
+  padding: 0;
+  line-height: 0;
+  border-style: none;
+  background-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+.gaming__heart-btn ion-icon {
+  font-size: 2.4rem;
 }
 .gaming__filters {
   display: grid;
@@ -218,7 +232,9 @@ input[type="number"]::-webkit-outer-spin-button {
   display: flex;
   align-items: center;
 }
-
+.gaming__heart-active {
+  color: #1d1e4d;
+}
 /* MEDIA QUERIES */
 @media screen and (min-width: 400px) {
   .gaming__main-content {

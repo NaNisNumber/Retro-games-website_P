@@ -8,7 +8,6 @@ import { nanoid } from "nanoid";
 const AboutGame = ({
   userIsLogedIn,
   games,
-  gameId,
   cartPanelIsOpened,
   setCartPanelIsOpened,
   gamesForCart,
@@ -23,22 +22,10 @@ const AboutGame = ({
     const splitedPath = path.split("/");
     const idFromPath = +splitedPath[splitedPath.length - 1];
 
-    if (idFromPath != gameId) {
-      /* find the game that corresponds with the id from the path 
-      if the user decides to change the id from the browser input 
-      or to refresh the page*/
-      for (let i = 0; i < games.length; i++) {
-        const game = games[i];
-        if (game.id === idFromPath) {
-          currentGame = game;
-        }
-      }
-    } else {
-      for (let i = 0; i < games.length; i++) {
-        const game = games[i];
-        if (game.id === gameId) {
-          currentGame = game;
-        }
+    for (let i = 0; i < games.length; i++) {
+      const game = games[i];
+      if (game.id === idFromPath) {
+        currentGame = game;
       }
     }
 

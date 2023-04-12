@@ -4,18 +4,29 @@ import RedirectToRegisterBtn from "./buttons/redirectToRegisterBtn/RedirectToReg
 import CloseRedirectOverlayBtn from "./buttons/closeRedirectOverlayBtn.jsx/CloseRedirectOverlayBtn";
 import "./RedirectToAccountOverlay.css";
 
-const RedirectToAccountOverlay = ({ setBuyBtnActive }) => {
+const RedirectToAccountOverlay = ({
+  buyBtnActive,
+  setBuyBtnActive,
+  wishlistBtnActive,
+  setWishlistBtnActive,
+}) => {
   return (
     <div
       onClick={() => {
+        setWishlistBtnActive(false);
         setBuyBtnActive(false);
       }}
       className="gaming__redirect-to-account-backdrop-shadow"
     >
       <div className="gaming__redirect-to-account-overlay-container">
-        <CloseRedirectOverlayBtn setBuyBtnActive={setBuyBtnActive} />
+        <CloseRedirectOverlayBtn
+          setWishlistBtnActive={setWishlistBtnActive}
+          setBuyBtnActive={setBuyBtnActive}
+        />
         <p className="gaming__redirect-to-account-text">
-          To purchase please log in or create an account.
+          To {buyBtnActive && "purchase"}
+          {wishlistBtnActive && "list that game"} please log in or create an
+          account.
         </p>
         <div className="gaming__redirect-to-account-overlay-btns-container">
           <RedirectToLoginBtn />

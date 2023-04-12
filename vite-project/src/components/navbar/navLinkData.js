@@ -15,10 +15,10 @@ const navLinkData = () => {
       text: "Games",
     },
     {
-      destination: "favorites",
+      destination: "wishlist",
       iconName: "heart",
       active: "gaming__navbar-link-active",
-      text: "Favorites",
+      text: "Wish List",
     },
     {
       destination: "about",

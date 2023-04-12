@@ -1,9 +1,10 @@
 import React from "react";
 import "./CloseRedirectOverlayBtn.css";
-const closeRedirectOverlayBtn = ({ setBuyBtnActive }) => {
+const closeRedirectOverlayBtn = ({ setBuyBtnActive, setWishlistBtnActive }) => {
   return (
     <button
       onClick={() => {
+        setWishlistBtnActive(false);
         setBuyBtnActive(false);
       }}
       className="gaming__close-redirect-overlay-btn"

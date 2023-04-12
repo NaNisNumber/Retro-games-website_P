@@ -21,6 +21,9 @@ const Shop = ({
   gamesForCart,
   setGamesForCart,
   userIsLogedIn,
+  wishList,
+  setWishList,
+  setWishlistBtnActive,
 }) => {
   return (
     <ShopSection
@@ -43,6 +46,9 @@ const Shop = ({
       gamesForCart={gamesForCart}
       setGamesForCart={setGamesForCart}
       userIsLogedIn={userIsLogedIn}
+      wishList={wishList}
+      setWishList={setWishList}
+      setWishlistBtnActive={setWishlistBtnActive}
     />
   );
 };

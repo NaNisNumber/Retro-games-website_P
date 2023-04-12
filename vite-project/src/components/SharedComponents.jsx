@@ -11,6 +11,9 @@ const SharedComponents = ({
   userIsLogedIn,
   setBuyBtnActive,
   setGamesForCart,
+  setWishlistBtnActive,
+  wishList,
+  setWishList,
 }) => {
   return (
     <Fragment>
@@ -23,10 +26,13 @@ const SharedComponents = ({
       </div>
       <NavBar
         setBuyBtnActive={setBuyBtnActive}
+        setWishlistBtnActive={setWishlistBtnActive}
         userIsLogedIn={userIsLogedIn}
         mainMenuIsClosed={mainMenuIsClosed}
         setMainMenuIsClosed={setMainMenuIsClosed}
         setGamesForCart={setGamesForCart}
+        wishList={wishList}
+        setWishList={setWishList}
       />
       <Outlet />
     </Fragment>

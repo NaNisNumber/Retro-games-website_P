@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
-import { Link } from "react-router-dom";
 import { nanoid } from "nanoid";
 import SearchBar from "./searchbar/SearchBar";
-import BuyBtn from "./buttons/buy-button/BuyBtn";
 import OpenFilterBtn from "./buttons/open-filter-btn/OpenFilterBtn";
 import FilterCriterion from "./filterCriterion/FilterCriterion";
 import "./ShopSection.css";
 import CartBtn from "./buttons/cartBtn/CartBtn";
 import CartPanel from "./CartPanel/CartPanel";
 import CloseFilterPanelBtn from "./buttons/CloseFilterPanel/CloseFilterPanelBtn";
+import GameCard from "../gameCard/GameCard";
+import { database, ref, onValue } from "../../firebaseConfig";
+import auth from "../../firebaseConfig";
 
 const ShopSection = ({
   filterPanelIsOpened,
@@ -24,13 +25,15 @@ const ShopSection = ({
   setDisplayOverlayGamesNotFound,
   areInitialNumberOfPages,
   setAreInitialNumberOfPages,
-  setGameId,
   setCartPanelIsOpened,
   cartPanelIsOpened,
   setBuyBtnActive,
   gamesForCart,
   setGamesForCart,
   userIsLogedIn,
+  wishList,
+  setWishList,
+  setWishlistBtnActive,
 }) => {
   const [genres, setGenres] = useState([]);
   const [filters, setFilters] = useState({});
@@ -41,6 +44,7 @@ const ShopSection = ({
   const [filtersToBeDisplayedRefs, setFiltersToBeDisplayedRefs] = useState([]);
   const [menusContainer, setMenusContainer] = useState(null);
   const [currentTab, setCurrentTab] = useState(null);
+  const [wishListBtnGameId, setWishListBtnGameId] = useState(null);
   const [ulListsAreOpened, setUlListsAreOpened] = useState({
     Genres: false,
     Rating: false,
@@ -364,6 +368,53 @@ const ShopSection = ({
     }
   };
 
+  const updateWishList = (e) => {
+    setWishlistBtnActive(true);
+    if (!userIsLogedIn) return;
+    e.stopPropagation();
+    const target = e.target.parentElement;
+    const currentGameId = +target.dataset.gameid;
+    const currentGame = games.find((game) => game.id === currentGameId);
+    target.classList.add("gaming__heart-active");
+    setWishListBtnGameId(currentGameId);
+
+    setWishList((prevWishlist) => [...prevWishlist, currentGame]);
+  };
+
+  useEffect(() => {
+    if (!userIsLogedIn) return;
+    const uid = auth.currentUser && auth.currentUser.uid;
+    const userRef = ref(database, "users/" + uid);
+    onValue(userRef, (snapshot) => {
+      const data = snapshot.val();
+      const gamesWishListDbStr = data && data.gamesForWishList;
+      const gamesWishListDbArr = JSON.parse(gamesWishListDbStr);
+
+      if (data && data.gamesForWishList) {
+        setWishList(gamesWishListDbArr);
+      }
+    });
+  }, [userIsLogedIn]);
+
+  useEffect(() => {
+    // check the most recent added game to the wishlist and check if there is more than one game with the same id;
+    let sameGames = 0;
+
+    for (let i = 0; i < wishList.length; i++) {
+      const game = wishList[i];
+      if (game.id == wishListBtnGameId) {
+        sameGames++;
+      }
+    }
+    if (sameGames >= 2) {
+      sameGames = 0;
+      const leftWishListGames = wishList.filter(
+        (game) => game.id != wishListBtnGameId
+      );
+      setWishList(leftWishListGames);
+    }
+  }, [wishList]);
+
   const createGameCard = () => {
     const gameCards =
       pageContents.length > 0 &&
@@ -378,39 +429,40 @@ const ShopSection = ({
         for (let i = 0; i < numberOfStars; i++) {
           starIcons.push(<ion-icon key={nanoid()} name="star"></ion-icon>);
         }
-
         return (
-          <div key={nanoid()} className="gaming__game-container">
-            <div className="gaming__game-fav-container">{starIcons}</div>
-            <img className="gaming__game-img" src={gameCover}></img>
-            <p className="gaming__game-name">{gameName}</p>
-            <div className="gaming__game-actions-container">
-              <Link to={`/shop/${game.id}`}>
-                <button
-                  onClick={() => {
-                    setGameId(game.id);
-                  }}
-                  className="gaming__about-game-btn"
-                >
-                  About Game
-                </button>
-              </Link>
-              <BuyBtn
-                userIsLogedIn={userIsLogedIn}
-                game={game}
-                gamesForCart={gamesForCart}
-                setGamesForCart={setGamesForCart}
-                setBuyBtnActive={setBuyBtnActive}
-              />
-              <span className="gaming__game-price">{gamePrice}</span>
-            </div>
-          </div>
+          <GameCard
+            gameCover={gameCover}
+            gameName={gameName}
+            gamePrice={gamePrice}
+            starIcons={starIcons}
+            game={game}
+            userIsLogedIn={userIsLogedIn}
+            gamesForCart={gamesForCart}
+            setGamesForCart={setGamesForCart}
+            setBuyBtnActive={setBuyBtnActive}
+            updateWishList={updateWishList}
+            key={nanoid()}
+          />
         );
       });
+
     return gameCards;
   };
-
   const gameCards = createGameCard();
+
+  useEffect(() => {
+    const heartBtns = document.querySelectorAll(".gaming__heart-btn");
+    for (let i = 0; i < heartBtns.length; i++) {
+      const heartBtn = heartBtns[i];
+      const btnGameId = heartBtn.dataset.gameid;
+      for (let j = 0; j < wishList.length; j++) {
+        const wishListItemId = wishList[j].id;
+        if (btnGameId == wishListItemId) {
+          heartBtn.classList.add("gaming__heart-active");
+        }
+      }
+    }
+  }, [gameCards]);
 
   useEffect(() => {
     setMenusContainer(document.querySelector(".gaming__menus-container"));
@@ -525,6 +577,7 @@ const ShopSection = ({
           setGamesForCart={setGamesForCart}
           setCartPanelIsOpened={setCartPanelIsOpened}
           cartPanelIsOpened={cartPanelIsOpened}
+          userIsLogedIn={userIsLogedIn}
         />
       )}
       {userIsLogedIn && (

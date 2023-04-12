@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import GamesNotFoundOverlay from "./src/components/gamesNotFoundOverlay/GamesNotFoundOverlay";
-import RedirectToAccountOverlay from "./src/components/shop-section/redirectToAccountOverlay/RedirectToAccountOverlay";
+import GamesNotFoundOverlay from "./components/gamesNotFoundOverlay/GamesNotFoundOverlay";
+import RedirectToAccountOverlay from "./components/shop-section/redirectToAccountOverlay/RedirectToAccountOverlay";
 
 const Overlays = ({
   areInitialNumberOfPages,
@@ -10,6 +10,8 @@ const Overlays = ({
   userIsLogedIn,
   buyBtnActive,
   setBuyBtnActive,
+  wishlistBtnActive,
+  setWishlistBtnActive,
 }) => {
   return (
     <Fragment>
@@ -20,8 +22,13 @@ const Overlays = ({
           setDisplayOverlayGamesNotFound={setDisplayOverlayGamesNotFound}
         />
       )}
-      {!userIsLogedIn && buyBtnActive && (
-        <RedirectToAccountOverlay setBuyBtnActive={setBuyBtnActive} />
+      {!userIsLogedIn && (buyBtnActive || wishlistBtnActive) && (
+        <RedirectToAccountOverlay
+          wishlistBtnActive={wishlistBtnActive}
+          setWishlistBtnActive={setWishlistBtnActive}
+          buyBtnActive={buyBtnActive}
+          setBuyBtnActive={setBuyBtnActive}
+        />
       )}
     </Fragment>
   );

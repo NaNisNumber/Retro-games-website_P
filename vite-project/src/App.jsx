@@ -3,14 +3,14 @@ import { useState, Fragment, useEffect } from "react";
 import SharedComponents from "./components/SharedComponents";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
-import Favorites from "./pages/Favorites";
+import WishList from "./pages/WishList";
 import About from "./pages/About";
 import Cart from "./pages/Cart";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Error from "./pages/Error";
-import Overlays from "../Overlays";
+import Overlays from "./Overlays";
 import AboutGame from "./components/shop-section/aboutGame/AboutGame";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import auth from "./firebaseConfig";
@@ -28,10 +28,11 @@ function App() {
   const [displayOverlayGamesNotFound, setDisplayOverlayGamesNotFound] =
     useState(true);
   const [areInitialNumberOfPages, setAreInitialNumberOfPages] = useState(null);
-  const [gameId, setGameId] = useState(null);
   const [userIsLogedIn, setUserIsLogedIn] = useState(false);
   const [buyBtnActive, setBuyBtnActive] = useState(false);
+  const [wishlistBtnActive, setWishlistBtnActive] = useState(false);
   const [gamesForCart, setGamesForCart] = useState([]);
+  const [wishList, setWishList] = useState([]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -56,11 +57,12 @@ function App() {
 
   useEffect(() => {
     if (!userIsLogedIn) return;
-    const uid = auth.currentUser.uid;
-    console.log(gamesForCart);
-
-    writeUserData(uid, JSON.stringify(gamesForCart));
-  }, [gamesForCart]);
+    const currentUser = auth.currentUser.uid;
+    writeUserData(currentUser, {
+      gamesForCart: JSON.stringify(gamesForCart),
+      gamesForWishList: JSON.stringify(wishList),
+    });
+  }, [gamesForCart, wishList]);
 
   const createLists = () => {
     for (let i = 0; i < gamesCopy.length; i++) {
@@ -101,6 +103,8 @@ function App() {
         numberOfPages={numberOfPages}
         displayOverlayGamesNotFound={displayOverlayGamesNotFound}
         setDisplayOverlayGamesNotFound={setDisplayOverlayGamesNotFound}
+        wishlistBtnActive={wishlistBtnActive}
+        setWishlistBtnActive={setWishlistBtnActive}
       />
 
       <BrowserRouter>
@@ -110,6 +114,7 @@ function App() {
             element={
               <SharedComponents
                 setBuyBtnActive={setBuyBtnActive}
+                setWishlistBtnActive={setWishlistBtnActive}
                 userIsLogedIn={userIsLogedIn}
                 setOpenFilterBtnRef={setOpenFilterBtnRef}
                 setFilterPanelIsOpened={setFilterPanelIsOpened}
@@ -117,6 +122,8 @@ function App() {
                 mainMenuIsClosed={mainMenuIsClosed}
                 setMainMenuIsClosed={setMainMenuIsClosed}
                 setGamesForCart={setGamesForCart}
+                wishList={wishList}
+                setWishList={setWishList}
               />
             }
           >
@@ -147,13 +154,15 @@ function App() {
                   }
                   areInitialNumberOfPages={areInitialNumberOfPages}
                   setAreInitialNumberOfPages={setAreInitialNumberOfPages}
-                  setGameId={setGameId}
                   setCartPanelIsOpened={setCartPanelIsOpened}
                   cartPanelIsOpened={cartPanelIsOpened}
                   setBuyBtnActive={setBuyBtnActive}
                   gamesForCart={gamesForCart}
                   setGamesForCart={setGamesForCart}
                   userIsLogedIn={userIsLogedIn}
+                  wishList={wishList}
+                  setWishList={setWishList}
+                  setWishlistBtnActive={setWishlistBtnActive}
                 />
               }
             ></Route>
@@ -166,7 +175,6 @@ function App() {
                   cartPanelIsOpened={cartPanelIsOpened}
                   setCartPanelIsOpened={setCartPanelIsOpened}
                   games={games}
-                  gameId={gameId}
                   gamesForCart={gamesForCart}
                   setGamesForCart={setGamesForCart}
                   setBuyBtnActive={setBuyBtnActive}
@@ -174,7 +182,19 @@ function App() {
               }
             ></Route>
 
-            <Route path="favorites" element={<Favorites />} />
+            <Route
+              path="wishlist"
+              element={
+                <WishList
+                  gamesForCart={gamesForCart}
+                  setGamesForCart={setGamesForCart}
+                  wishList={wishList}
+                  setWishList={setWishList}
+                  setBuyBtnActive={setBuyBtnActive}
+                  userIsLogedIn={userIsLogedIn}
+                />
+              }
+            />
             <Route path="about" element={<About />} />
             <Route path="cart" element={<Cart />} />
             <Route path="contact" element={<Contact />} />
