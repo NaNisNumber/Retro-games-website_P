@@ -28,7 +28,7 @@
   height: 100vh;
   padding: 2.4rem;
   background-color: silver;
-  animation: moveOverlay 0.5s ease-in-out;
+  animation: moveOverlay 1s ease-out;
   backdrop-filter: blur(8px);
   cursor: pointer;
   z-index: 5000;
