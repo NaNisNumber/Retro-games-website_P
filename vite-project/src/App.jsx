@@ -219,8 +219,7 @@ function App() {
                 />
               }
             />
-            <Route path="about" element={<About />} />
-            <Route path="cart" element={<Cart />} />
+
             <Route path="contact" element={<Contact />} />
             <Route
               path="login"

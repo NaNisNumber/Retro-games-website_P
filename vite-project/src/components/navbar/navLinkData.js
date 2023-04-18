@@ -20,23 +20,12 @@ const navLinkData = () => {
       active: "gaming__navbar-link-active",
       text: "Wish List",
     },
-    {
-      destination: "about",
-      iconName: "information-circle",
-      active: "gaming__navbar-link-active",
-      text: "About",
-    },
+
     {
       destination: "contact",
       iconName: "call",
       active: "gaming__navbar-link-active",
       text: "Contact",
-    },
-    {
-      destination: "cart",
-      iconName: "cart",
-      active: "gaming__navbar-link-active",
-      text: "Cart",
     },
   ];
 
