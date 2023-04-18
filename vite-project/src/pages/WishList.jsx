@@ -11,6 +11,8 @@ const WishList = ({
   userIsLogedIn,
   setWishlistBtnActive,
   games,
+  cartPanelIsOpened,
+  setCartPanelIsOpened,
 }) => {
   return (
     <WishListSection
@@ -22,6 +24,8 @@ const WishList = ({
       userIsLogedIn={userIsLogedIn}
       setWishlistBtnActive={setWishlistBtnActive}
       games={games}
+      cartPanelIsOpened={cartPanelIsOpened}
+      setCartPanelIsOpened={setCartPanelIsOpened}
     />
   );
 };

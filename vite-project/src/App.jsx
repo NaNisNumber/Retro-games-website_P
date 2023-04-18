@@ -4,8 +4,6 @@ import SharedComponents from "./components/SharedComponents";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import WishList from "./pages/WishList";
-import About from "./pages/About";
-import Cart from "./pages/Cart";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -216,6 +214,8 @@ function App() {
                   userIsLogedIn={userIsLogedIn}
                   setWishlistBtnActive={setWishlistBtnActive}
                   games={games}
+                  cartPanelIsOpened={cartPanelIsOpened}
+                  setCartPanelIsOpened={setCartPanelIsOpened}
                 />
               }
             />

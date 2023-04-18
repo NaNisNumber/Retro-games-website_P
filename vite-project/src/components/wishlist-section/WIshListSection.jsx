@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import GameCard from "../gameCard/GameCard";
 import { nanoid } from "nanoid";
 import "./WishList.css";
-
+import CartBtn from "../shop-section/buttons/cartBtn/CartBtn";
+import CartPanel from "../shop-section/CartPanel/CartPanel";
 const WishListSection = ({
   wishList,
   setWishList,
@@ -12,6 +13,8 @@ const WishListSection = ({
   userIsLogedIn,
   setWishlistBtnActive,
   games,
+  cartPanelIsOpened,
+  setCartPanelIsOpened,
 }) => {
   const createWishListGameCards = () => {
     const wishListGameCards = wishList.map((game) => {
@@ -82,7 +85,7 @@ const WishListSection = ({
         }
       }
     }
-  }, [wishList]);
+  });
 
   const wishListGameCards = createWishListGameCards();
 
@@ -90,6 +93,21 @@ const WishListSection = ({
     <section className="gaming__wishlist-section">
       <main className="gaming__main-container">
         <div className="gaming__main-content">{wishListGameCards}</div>
+        {userIsLogedIn && (
+          <CartPanel
+            gamesForCart={gamesForCart}
+            setGamesForCart={setGamesForCart}
+            setCartPanelIsOpened={setCartPanelIsOpened}
+            cartPanelIsOpened={cartPanelIsOpened}
+          />
+        )}
+        {userIsLogedIn && (
+          <CartBtn
+            gamesForCart={gamesForCart}
+            cartPanelIsOpened={cartPanelIsOpened}
+            setCartPanelIsOpened={setCartPanelIsOpened}
+          />
+        )}
       </main>
     </section>
   );
