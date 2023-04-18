@@ -9,8 +9,6 @@ import CartBtn from "./buttons/cartBtn/CartBtn";
 import CartPanel from "./CartPanel/CartPanel";
 import CloseFilterPanelBtn from "./buttons/CloseFilterPanel/CloseFilterPanelBtn";
 import GameCard from "../gameCard/GameCard";
-import { database, ref, onValue } from "../../firebaseConfig";
-import auth from "../../firebaseConfig";
 
 const ShopSection = ({
   filterPanelIsOpened,
@@ -44,7 +42,6 @@ const ShopSection = ({
   const [filtersToBeDisplayedRefs, setFiltersToBeDisplayedRefs] = useState([]);
   const [menusContainer, setMenusContainer] = useState(null);
   const [currentTab, setCurrentTab] = useState(null);
-  const [wishListBtnGameId, setWishListBtnGameId] = useState(null);
   const [ulListsAreOpened, setUlListsAreOpened] = useState({
     Genres: false,
     Rating: false,
@@ -375,45 +372,24 @@ const ShopSection = ({
     const target = e.target.parentElement;
     const currentGameId = +target.dataset.gameid;
     const currentGame = games.find((game) => game.id === currentGameId);
+    if (!currentGame) return;
     target.classList.add("gaming__heart-active");
-    setWishListBtnGameId(currentGameId);
-
     setWishList((prevWishlist) => [...prevWishlist, currentGame]);
-  };
-
-  useEffect(() => {
-    if (!userIsLogedIn) return;
-    const uid = auth.currentUser && auth.currentUser.uid;
-    const userRef = ref(database, "users/" + uid);
-    onValue(userRef, (snapshot) => {
-      const data = snapshot.val();
-      const gamesWishListDbStr = data && data.gamesForWishList;
-      const gamesWishListDbArr = JSON.parse(gamesWishListDbStr);
-
-      if (data && data.gamesForWishList) {
-        setWishList(gamesWishListDbArr);
-      }
-    });
-  }, [userIsLogedIn]);
-
-  useEffect(() => {
-    // check the most recent added game to the wishlist and check if there is more than one game with the same id;
-    let sameGames = 0;
+    let gameExist = false;
 
     for (let i = 0; i < wishList.length; i++) {
       const game = wishList[i];
-      if (game.id == wishListBtnGameId) {
-        sameGames++;
+      if (game.id == currentGameId) {
+        gameExist = true;
       }
     }
-    if (sameGames >= 2) {
-      sameGames = 0;
+    if (gameExist) {
       const leftWishListGames = wishList.filter(
-        (game) => game.id != wishListBtnGameId
+        (game) => game.id != currentGameId
       );
       setWishList(leftWishListGames);
     }
-  }, [wishList]);
+  };
 
   const createGameCard = () => {
     const gameCards =
@@ -456,13 +432,14 @@ const ShopSection = ({
       const heartBtn = heartBtns[i];
       const btnGameId = heartBtn.dataset.gameid;
       for (let j = 0; j < wishList.length; j++) {
+        if (!wishList[j]) continue;
         const wishListItemId = wishList[j].id;
         if (btnGameId == wishListItemId) {
           heartBtn.classList.add("gaming__heart-active");
         }
       }
     }
-  }, [gameCards]);
+  }, [wishList, gameCards]);
 
   useEffect(() => {
     setMenusContainer(document.querySelector(".gaming__menus-container"));
@@ -577,7 +554,6 @@ const ShopSection = ({
           setGamesForCart={setGamesForCart}
           setCartPanelIsOpened={setCartPanelIsOpened}
           cartPanelIsOpened={cartPanelIsOpened}
-          userIsLogedIn={userIsLogedIn}
         />
       )}
       {userIsLogedIn && (

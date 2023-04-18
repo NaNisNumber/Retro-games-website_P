@@ -15,7 +15,7 @@ import AboutGame from "./components/shop-section/aboutGame/AboutGame";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import auth from "./firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
-import { writeUserData } from "./firebaseConfig";
+import { writeUserData, database, ref, onValue } from "./firebaseConfig";
 
 function App() {
   const [mainMenuIsClosed, setMainMenuIsClosed] = useState(true);
@@ -54,6 +54,28 @@ function App() {
     };
     retrieveGameData();
   }, []);
+
+  useEffect(() => {
+    if (!userIsLogedIn) return;
+    const uid = auth.currentUser && auth.currentUser.uid;
+    const userRef = ref(database, "users/" + uid);
+    onValue(userRef, (snapshot) => {
+      const data = snapshot.val();
+      const gamesWishListDbStr = data && data.gamesForWishList;
+      const gamesWishListDbArr = JSON.parse(gamesWishListDbStr);
+
+      if (data && data.gamesForWishList) {
+        setWishList(gamesWishListDbArr);
+      }
+
+      const gamesCartDbStr = data && data.gamesForCart;
+      const gamesCartDbArr = JSON.parse(gamesCartDbStr);
+
+      if (data && data.gamesForCart) {
+        setGamesForCart(gamesCartDbArr);
+      }
+    });
+  }, [userIsLogedIn]);
 
   useEffect(() => {
     if (!userIsLogedIn) return;
@@ -192,6 +214,8 @@ function App() {
                   setWishList={setWishList}
                   setBuyBtnActive={setBuyBtnActive}
                   userIsLogedIn={userIsLogedIn}
+                  setWishlistBtnActive={setWishlistBtnActive}
+                  games={games}
                 />
               }
             />

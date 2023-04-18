@@ -9,6 +9,8 @@ const WishList = ({
   setGamesForCart,
   setBuyBtnActive,
   userIsLogedIn,
+  setWishlistBtnActive,
+  games,
 }) => {
   return (
     <WishListSection
@@ -18,6 +20,8 @@ const WishList = ({
       setGamesForCart={setGamesForCart}
       setBuyBtnActive={setBuyBtnActive}
       userIsLogedIn={userIsLogedIn}
+      setWishlistBtnActive={setWishlistBtnActive}
+      games={games}
     />
   );
 };

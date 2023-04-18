@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import GameCard from "../gameCard/GameCard";
 import { nanoid } from "nanoid";
 import "./WishList.css";
-import { database, ref, onValue } from "../../firebaseConfig";
-import auth from "../../firebaseConfig";
 
 const WishListSection = ({
   wishList,
@@ -12,6 +10,8 @@ const WishListSection = ({
   setGamesForCart,
   setBuyBtnActive,
   userIsLogedIn,
+  setWishlistBtnActive,
+  games,
 }) => {
   const createWishListGameCards = () => {
     const wishListGameCards = wishList.map((game) => {
@@ -24,19 +24,31 @@ const WishListSection = ({
         starIcons.push(<ion-icon key={nanoid()} name="star"></ion-icon>);
       }
 
-      useEffect(() => {
-        const heartBtns = document.querySelectorAll(".gaming__heart-btn");
-        for (let i = 0; i < heartBtns.length; i++) {
-          const heartBtn = heartBtns[i];
-          const btnGameId = heartBtn.dataset.gameid;
-          for (let j = 0; j < wishList.length; j++) {
-            const wishListItemId = wishList[j].id;
-            if (btnGameId == wishListItemId) {
-              heartBtn.classList.add("gaming__heart-active");
-            }
+      const updateWishList = (e) => {
+        setWishlistBtnActive(true);
+        if (!userIsLogedIn) return;
+        e.stopPropagation();
+        const target = e.target.parentElement;
+        const currentGameId = +target.dataset.gameid;
+        const currentGame = games.find((game) => game.id === currentGameId);
+        if (!currentGame) return;
+        target.classList.add("gaming__heart-active");
+        setWishList((prevWishlist) => [...prevWishlist, currentGame]);
+        let gameExist = false;
+
+        for (let i = 0; i < wishList.length; i++) {
+          const game = wishList[i];
+          if (game.id == currentGameId) {
+            gameExist = true;
           }
         }
-      }, []);
+        if (gameExist) {
+          const leftWishListGames = wishList.filter(
+            (game) => game.id != currentGameId
+          );
+          setWishList(leftWishListGames);
+        }
+      };
 
       return (
         <GameCard
@@ -50,12 +62,27 @@ const WishListSection = ({
           setBuyBtnActive={setBuyBtnActive}
           userIsLogedIn={userIsLogedIn}
           key={nanoid()}
+          updateWishList={updateWishList}
         />
       );
     });
 
     return wishListGameCards;
   };
+
+  useEffect(() => {
+    const heartBtns = document.querySelectorAll(".gaming__heart-btn");
+    for (let i = 0; i < heartBtns.length; i++) {
+      const heartBtn = heartBtns[i];
+      const btnGameId = heartBtn.dataset.gameid;
+      for (let j = 0; j < wishList.length; j++) {
+        const wishListItemId = wishList[j].id;
+        if (btnGameId == wishListItemId) {
+          heartBtn.classList.add("gaming__heart-active");
+        }
+      }
+    }
+  }, [wishList]);
 
   const wishListGameCards = createWishListGameCards();
 
