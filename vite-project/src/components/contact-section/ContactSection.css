@@ -1,0 +1,38 @@
+.gaming__contact-section {
+  background-color: #1d1e4d;
+  padding: 2.8rem 2.4rem 7.4rem 2.4rem;
+  height: 100vh;
+}
+.gaming__contact-main-content {
+  display: grid;
+  gap: 2.4rem;
+  justify-items: center;
+}
+.gaming__contact-details-container {
+  align-self: end;
+}
+.gaming__contact-details-ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.gaming__contact-details-ul li {
+  list-style: none;
+  color: #fff;
+  font-size: 1.6rem;
+}
+.gaming__contact-details-ul li span {
+  color: #ff8c00;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (min-width: 900px) {
+  .gaming__contact-main-content {
+    width: 70%;
+  }
+  .gaming__contact-section {
+    display: flex;
+    justify-content: center;
+  }
+}

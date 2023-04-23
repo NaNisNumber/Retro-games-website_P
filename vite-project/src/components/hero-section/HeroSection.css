@@ -91,15 +91,6 @@ header {
     display: inline-block;
     width: 60%;
   }
-
-  /* .gaming__hero-img-big {
-    width: 80%;
-    display: inline-block;
-    justify-self: center;
-  } */
-  /* .gaming__hero-btn {
-    justify-self: center;
-  } */
 }
 
 @media screen and (min-width: 900px) {

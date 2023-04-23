@@ -138,3 +138,7 @@ table {
 .btn {
   cursor: pointer;
 }
+html,
+body {
+  height: 100%;
+}

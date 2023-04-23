@@ -7,7 +7,6 @@ import WishList from "./pages/WishList";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Error from "./pages/Error";
 import Overlays from "./Overlays";
 import AboutGame from "./components/shop-section/aboutGame/AboutGame";
 import { BrowserRouter, Routes, Route } from "react-router-dom";

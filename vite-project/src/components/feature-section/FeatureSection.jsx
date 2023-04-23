@@ -19,7 +19,7 @@ const FeatureSection = ({ mainMenuIsClosed }) => {
 
   function createSliders() {
     if (games.length === 0) return;
-    const sliderImgs = games.map((game, i) => {
+    const sliderImgs = games.map((game) => {
       const gameUrl = game.imgUrl;
 
       return (
@@ -162,9 +162,6 @@ const FeatureSection = ({ mainMenuIsClosed }) => {
             <div className="gaming__feature-game-cta-container">
               <button className="gaming__feature-game-page-btn">
                 See Game
-              </button>
-              <button className="gaming__feature-game-wishlist-btn">
-                Wishlist
               </button>
             </div>
             {createSliders()}

@@ -120,21 +120,6 @@ li {
 .gaming__feature-game-page-btn:active {
   background-color: rgb(228, 47, 129, 0.7);
 }
-.gaming__feature-game-wishlist-btn {
-  font-weight: 500;
-  font-size: 1.6rem;
-  transition: 0.3s all;
-  cursor: pointer;
-  font-family: Roboto;
-  padding: 0.8rem 1.6rem;
-  background-color: silver;
-  color: #1d1e4d;
-  border: 1px solid #fff;
-}
-.gaming__feature-game-wishlist-btn:hover,
-.gaming__feature-game-wishlist-btn:active {
-  background-color: rgb(192, 192, 192, 0.7);
-}
 
 /* MEDIA QUERIES */
 @media screen and (min-width: 500px) {

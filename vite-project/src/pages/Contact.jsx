@@ -1,7 +1,11 @@
-import React from "react";
-
+import React, { Fragment } from "react";
+import ContactSection from "../components/contact-section/ContactSection";
 const Contact = () => {
-  return <div></div>;
+  return (
+    <Fragment>
+      <ContactSection />
+    </Fragment>
+  );
 };
 
 export default Contact;
