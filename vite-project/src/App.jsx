@@ -108,6 +108,7 @@ function App() {
   };
 
   gamesCopy.length > 0 && createLists();
+
   useEffect(() => {
     setGames(gamesCopy);
   }, []);

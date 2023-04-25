@@ -19,11 +19,11 @@ const FeatureSection = ({ mainMenuIsClosed }) => {
 
   function createSliders() {
     if (games.length === 0) return;
-    const sliderImgs = games.map((game) => {
+    const sliderImgs = games.map((game, i) => {
       const gameUrl = game.imgUrl;
 
       return (
-        <figure key={nanoid()} className="gaming__feature-img-container">
+        <figure className="gaming__feature-img-container">
           <img
             alt="game"
             src={gameUrl}
@@ -58,6 +58,7 @@ const FeatureSection = ({ mainMenuIsClosed }) => {
         return nextSlide(lastSlideIndex, slides);
       }, 2500);
     });
+
     const changeSlidesPosition = () => {
       const slideWidth = slides[0].getBoundingClientRect().width;
       for (let i = 0; i < slides.length; i++) {
