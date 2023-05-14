@@ -1,5 +1,5 @@
 import "./HeroSection.css";
-
+import { Link } from "react-router-dom";
 export default function HeroSection() {
   return (
     <section className="gaming__hero-section">
@@ -24,7 +24,9 @@ export default function HeroSection() {
             favorites without breaking the bank. Our inventory is constantly
             updating, so be sure to check back often for new arrivals.
           </p>
-          <button className="gaming__hero-btn">See Our Games</button>
+          <Link className="gaming__hero-link" to={"/shop"}>
+            <button className="gaming__hero-btn">See Our Games</button>
+          </Link>
         </header>
         <img className="gaming__hero-img-sm" src="../Assets/heroImg.webp" />
       </div>

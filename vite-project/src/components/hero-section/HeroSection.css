@@ -45,6 +45,9 @@ header {
   text-align: center;
   margin-bottom: 2.4rem;
 }
+.gaming__hero-link {
+  justify-self: end;
+}
 .gaming__hero-btn {
   border-style: none;
   color: #fff;
@@ -53,7 +56,6 @@ header {
   background-color: #e43082;
   padding: 0.8rem 1.6rem;
   border-radius: 2.8rem;
-  justify-self: end;
   transition: 0.3s all;
   cursor: pointer;
 }
@@ -94,9 +96,10 @@ header {
 }
 
 @media screen and (min-width: 900px) {
-  .gaming__hero-btn {
+  .gaming__hero-link {
     justify-self: center;
   }
+
   .gaming__hero-img-sm {
     display: none;
   }
@@ -134,4 +137,4 @@ header {
     align-items: start;
     margin: 7rem auto;
   }
-} ;
+}
