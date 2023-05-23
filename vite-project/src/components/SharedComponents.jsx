@@ -1,5 +1,6 @@
 import { React, Fragment } from "react";
 import NavBar from "./navbar/NavBar";
+import Footer from "./footer/Footer";
 import OpenNavBtn from "./open-nav-btn/OpenNavBtn";
 import { Outlet } from "react-router-dom";
 
@@ -35,6 +36,7 @@ const SharedComponents = ({
         setWishList={setWishList}
       />
       <Outlet />
+      <Footer />
     </Fragment>
   );
 };
