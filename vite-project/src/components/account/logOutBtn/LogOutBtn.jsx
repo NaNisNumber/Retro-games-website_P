@@ -2,7 +2,6 @@ import React from "react";
 import "./LogOutBtn.css";
 import { signOut } from "firebase/auth";
 import auth from "../../../firebaseConfig";
-import WishList from "../../../pages/WishList";
 
 const LogOutBtn = ({
   setBuyBtnActive,

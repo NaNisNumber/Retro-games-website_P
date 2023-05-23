@@ -1,0 +1,15 @@
+.gaming__faq-section {
+  padding: 4.8rem 2.4rem 9.6rem 2.4rem;
+  background-color: #1d1e4d;
+}
+.gaming__faq-main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  align-items: center;
+}
+.gaming__faq-text {
+  color: #fff;
+  font-size: 3.2rem;
+  letter-spacing: 2px;
+}

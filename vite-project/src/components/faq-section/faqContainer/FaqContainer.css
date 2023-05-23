@@ -1,0 +1,50 @@
+.gaming__faq-container {
+  background-color: rgb(250, 241, 247);
+  padding: 1.4rem 2rem;
+  border-radius: 4px;
+  width: clamp(30rem, 100%, 90rem);
+}
+
+.gaming__question-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.gaming__faq-down-arrow-icon {
+  font-size: 2.4rem;
+  transition: 0.3s ease-in-out all;
+}
+.gaming__faq-question {
+  color: #1d1e4d;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+.gaming__faq-btn {
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+}
+.gaming__faq-answer {
+  color: #ff8c00;
+  margin-top: 0.8rem;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  font-weight: 500;
+  max-height: 50px;
+  transition: all 0.3s;
+}
+/* JS CLASSES */
+
+.gaming__faq-answer-hidden {
+  height: 0;
+  overflow: hidden;
+  margin-top: 0;
+}
+/* MEDIA QUERIES */
+@media screen and (min-width: 900px) {
+  .gaming__faq-question,
+  .gaming__faq-answer {
+    font-size: 1.6rem;
+  }
+}
