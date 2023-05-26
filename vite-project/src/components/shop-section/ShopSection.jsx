@@ -53,8 +53,8 @@ const ShopSection = ({
     Price: false,
   });
   const [numOfOpenLists, setNumOfOpenLists] = useState(1);
-
   const filterContainerRef = useRef(null);
+
   const ratings = ["1 star", "2 stars", "3 stars", "4 stars", "5 stars"];
   const prices = ["10$", "15$", "20$", "22$"];
 
@@ -566,6 +566,14 @@ const ShopSection = ({
       <main className="gaming__main-container">
         <div className="gaming__main-content">{gameCards}</div>
       </main>
+      <button
+        onClick={() => {
+          scroll({ top: 0, behavior: "smooth" });
+        }}
+        className="gaming__scroll-up-arrow gaming__scroll-up-arrow-hidden"
+      >
+        <ion-icon name="arrow-up-outline"></ion-icon>
+      </button>
       {portalForOpenFilterBtn}
     </section>
   );

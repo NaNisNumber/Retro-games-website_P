@@ -235,6 +235,22 @@ input[type="number"]::-webkit-outer-spin-button {
 .gaming__heart-active {
   color: #1d1e4d;
 }
+.gaming__scroll-up-arrow {
+  position: fixed;
+  top: 10%;
+  right: 1.6rem;
+  border: none;
+  background-color: #1d1e4d;
+  line-height: 0;
+  font-size: 2.4rem;
+  color: #fff;
+  padding: 0.4rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.gaming__scroll-up-arrow-hidden {
+  display: none;
+}
 /* MEDIA QUERIES */
 @media screen and (min-width: 400px) {
   .gaming__main-content {

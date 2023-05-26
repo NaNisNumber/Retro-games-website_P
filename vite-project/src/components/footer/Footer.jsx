@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Footer.css";
-
 import { Link } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
+
 const Footer = () => {
+  const { ref, inView } = useInView();
+
+  const displayScrollUpArrow = () => {
+    const scrollUpArrow = document.querySelector(".gaming__scroll-up-arrow");
+    if (!scrollUpArrow) return;
+    if (inView) {
+      scrollUpArrow.classList.remove("gaming__scroll-up-arrow-hidden");
+    } else {
+      scrollUpArrow.classList.add("gaming__scroll-up-arrow-hidden");
+    }
+  };
+  displayScrollUpArrow();
+
   return (
-    <footer>
+    <footer ref={ref}>
       <main className="gaming__footer-main-container">
         <ul className="gaming__footer-container">
           <li>
