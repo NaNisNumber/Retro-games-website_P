@@ -45,7 +45,9 @@ function App() {
 
   useEffect(() => {
     const retrieveGameData = async () => {
-      const response = await fetch("http://localhost:5000");
+      const response = await fetch(
+        "https://retro-gaming-games-server.herokuapp.com/"
+      );
       const games = await response.json();
       setGames(games);
     };
@@ -229,7 +231,6 @@ function App() {
               path="register"
               element={<Register userIsLogedIn={userIsLogedIn} />}
             />
-            <Route path="*" element={<Error />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -60,7 +60,9 @@ const ShopSection = ({
 
   useEffect(() => {
     const retrieveGameGenres = async () => {
-      const response = await fetch("http://localhost:5002");
+      const response = await fetch(
+        "https://retro-gaming-genres-server.herokuapp.com/"
+      );
       const genres = await response.json();
 
       setGenres(genres);

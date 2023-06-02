@@ -23,7 +23,9 @@ const FeatureSection = ({ mainMenuIsClosed }) => {
   useEffect(() => {
     // games for slider
     const retrieveGameData = async () => {
-      const response = await fetch("http://localhost:5001/");
+      const response = await fetch(
+        "https://retro-gaming-slides-server.herokuapp.com/"
+      );
       const games = await response.json();
       setSliderGames(games);
     };
