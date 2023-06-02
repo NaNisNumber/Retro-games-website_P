@@ -1,13 +1,15 @@
 import "./HeroSection.css";
 import { Link } from "react-router-dom";
+import heroImg from "../../img/heroImg.webp";
+import logo from "../../img/logo.svg";
 export default function HeroSection() {
   return (
     <section className="gaming__hero-section">
       <div className="gaming__hero-container">
-        <img className="gaming__hero-img-big" src="../Assets/heroImg.webp" />
+        <img className="gaming__hero-img-big" src={heroImg} />
         <header>
           <div className="gaming__hero-heading-container">
-            <img className="gaming__logo" src="../../../Assets/logo.svg" />
+            <img className="gaming__logo" src={logo} />
             <h1 className="gaming__hero-heading">Retro Gaming</h1>
           </div>
           <p className="gaming__hero-text">
@@ -28,7 +30,7 @@ export default function HeroSection() {
             <button className="gaming__hero-btn">See Our Games</button>
           </Link>
         </header>
-        <img className="gaming__hero-img-sm" src="../Assets/heroImg.webp" />
+        <img className="gaming__hero-img-sm" src={heroImg} />
       </div>
     </section>
   );

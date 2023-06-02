@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import navLinkData from "./navLinkData";
 import { useLocation } from "react-router-dom";
 import LogOutBtn from "../account/logOutBtn/LogOutBtn";
-
+import arrowBack from "../../img/arrowBack.png";
 export default function NavBar({
   mainMenuIsClosed,
   setMainMenuIsClosed,
@@ -79,10 +79,7 @@ export default function NavBar({
 
   const displayCloseBtn = mainMenuIsClosed ? null : (
     <button onClick={closeNav} className="gaming__navbar-close-btn btn">
-      <img
-        className="gaming__navbar-close-icon"
-        src="../Assets/arrowBack.png"
-      />
+      <img className="gaming__navbar-close-icon" src={arrowBack} />
     </button>
   );
 

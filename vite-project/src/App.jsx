@@ -117,22 +117,21 @@ function App() {
 
   return (
     <Fragment>
-      <Overlays
-        buyBtnActive={buyBtnActive}
-        setBuyBtnActive={setBuyBtnActive}
-        userIsLogedIn={userIsLogedIn}
-        areInitialNumberOfPages={areInitialNumberOfPages}
-        numberOfPages={numberOfPages}
-        displayOverlayGamesNotFound={displayOverlayGamesNotFound}
-        setDisplayOverlayGamesNotFound={setDisplayOverlayGamesNotFound}
-        wishlistBtnActive={wishlistBtnActive}
-        setWishlistBtnActive={setWishlistBtnActive}
-      />
-
       <BrowserRouter>
+        <Overlays
+          buyBtnActive={buyBtnActive}
+          setBuyBtnActive={setBuyBtnActive}
+          userIsLogedIn={userIsLogedIn}
+          areInitialNumberOfPages={areInitialNumberOfPages}
+          numberOfPages={numberOfPages}
+          displayOverlayGamesNotFound={displayOverlayGamesNotFound}
+          setDisplayOverlayGamesNotFound={setDisplayOverlayGamesNotFound}
+          wishlistBtnActive={wishlistBtnActive}
+          setWishlistBtnActive={setWishlistBtnActive}
+        />
         <Routes>
           <Route
-            path="/"
+            path="/Retro-games-website_P"
             element={
               <SharedComponents
                 setBuyBtnActive={setBuyBtnActive}
@@ -159,7 +158,7 @@ function App() {
               }
             />
             <Route
-              path="/shop"
+              path="/Retro-games-website_P/shop"
               element={
                 <Shop
                   pageContents={pageContents}
@@ -190,7 +189,7 @@ function App() {
             ></Route>
 
             <Route
-              path="/shop/:gameId"
+              path="/Retro-games-website_P/shop/:gameId"
               element={
                 <AboutGame
                   userIsLogedIn={userIsLogedIn}
@@ -205,7 +204,7 @@ function App() {
             ></Route>
 
             <Route
-              path="wishlist"
+              path="/Retro-games-website_P/wishlist"
               element={
                 <WishList
                   gamesForCart={gamesForCart}
@@ -222,13 +221,16 @@ function App() {
               }
             />
 
-            <Route path="contact" element={<Contact />} />
             <Route
-              path="login"
+              path="/Retro-games-website_P/contact"
+              element={<Contact />}
+            />
+            <Route
+              path="/Retro-games-website_P/login"
               element={<Login userIsLogedIn={userIsLogedIn} />}
             />
             <Route
-              path="register"
+              path="/Retro-games-website_P/register"
               element={<Register userIsLogedIn={userIsLogedIn} />}
             />
           </Route>

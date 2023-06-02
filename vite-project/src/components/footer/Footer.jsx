@@ -22,21 +22,21 @@ const Footer = () => {
       <main className="gaming__footer-main-container">
         <ul className="gaming__footer-container">
           <li>
-            <Link to={"/"}>Home</Link>
+            <Link to={"/Retro-games-website_P"}>Home</Link>
           </li>
           <li>
-            <Link to={"/login"}>Go to login</Link>
+            <Link to={"/Retro-games-website_P/login"}>Go to login</Link>
           </li>
           <li>
-            <Link to={"/register"}>Go to register</Link>
+            <Link to={"/Retro-games-website_P/register"}>Go to register</Link>
           </li>
         </ul>
         <ul className="gaming__footer-container">
           <li>
-            <Link to={"/contact"}>Contact</Link>
+            <Link to={"/Retro-games-website_P/contact"}>Contact</Link>
           </li>
           <li>
-            <Link to={"/shop"}>Games</Link>
+            <Link to={"/Retro-games-website_P/shop"}>Games</Link>
           </li>
         </ul>
         <ul className="gaming__footer-container-social">

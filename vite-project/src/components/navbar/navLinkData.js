@@ -3,26 +3,26 @@ import React from "react";
 const navLinkData = () => {
   const linkData = [
     {
-      destination: "/",
+      destination: "/Retro-games-website_P",
       iconName: "home",
       active: "gaming__navbar-link-active",
       text: "Home",
     },
     {
-      destination: "shop",
+      destination: "/Retro-games-website_P/shop",
       iconName: "game-controller",
       active: "gaming__navbar-link-active",
       text: "Games",
     },
     {
-      destination: "wishlist",
+      destination: "/Retro-games-website_P/wishlist",
       iconName: "heart",
       active: "gaming__navbar-link-active",
       text: "Wish List",
     },
 
     {
-      destination: "contact",
+      destination: "/Retro-games-website_P/contact",
       iconName: "call",
       active: "gaming__navbar-link-active",
       text: "Contact",
