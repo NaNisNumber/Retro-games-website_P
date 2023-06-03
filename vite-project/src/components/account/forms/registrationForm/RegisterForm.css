@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-top: 7rem;
 }
 .gaming__account-form {
   display: flex;
@@ -13,6 +12,7 @@
   background-color: rgb(23, 80, 137);
   border: 1px ridge silver;
   border-radius: 9px;
+  margin-top: 7rem;
 }
 .gaming__account-form-input {
   background-color: silver;
@@ -70,7 +70,7 @@
   }
 }
 @media screen and (min-width: 900px) {
-  .gaming__account-container {
+  .gaming__account-form {
     margin-top: 12.8rem;
   }
-} ;
+}

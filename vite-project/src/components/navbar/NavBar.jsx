@@ -25,14 +25,20 @@ export default function NavBar({
 
   const changePosition = (logicalOperator, nav = navbarFromRef) => {
     if (logicalOperator === "||") {
-      if (path === "/register" || path === "/login") {
+      if (
+        path === "/Retro-games-website_P/register" ||
+        path === "/Retro-games-website_P/login"
+      ) {
         nav.classList.remove(`gaming__navbar--big-position-static`);
         nav.classList.add(`gaming__navbar--sm-position-fixed`);
         nav.classList.add(`gaming__navbar--big-position-fixed`);
       }
     }
     if (logicalOperator === "&&") {
-      if (path !== "/register" && path !== "/login") {
+      if (
+        path !== "/Retro-games-website_P/register" &&
+        path !== "/Retro-games-website_P/login"
+      ) {
         nav.classList.add(`gaming__navbar--big-position-static`);
         nav.classList.add(`gaming__navbar--sm-position-fixed`);
         nav.classList.remove(`gaming__navbar--big-position-fixed`);

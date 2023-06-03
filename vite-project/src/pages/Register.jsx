@@ -10,7 +10,7 @@ const Register = ({ userIsLogedIn }) => {
 
   useEffect(() => {
     if (redirectSecondsFromRegister === 0) {
-      navigate("/shop");
+      navigate("/Retro-games-website_P/shop");
     }
     if (!userIsLogedIn || redirectSecondsFromRegister === 0) return;
 
