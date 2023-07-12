@@ -3,8 +3,6 @@ import GamesNotFoundOverlay from "./components/gamesNotFoundOverlay/GamesNotFoun
 import RedirectToAccountOverlay from "./components/shop-section/redirectToAccountOverlay/RedirectToAccountOverlay";
 
 const Overlays = ({
-  areInitialNumberOfPages,
-  numberOfPages,
   displayOverlayGamesNotFound,
   setDisplayOverlayGamesNotFound,
   userIsLogedIn,
@@ -15,9 +13,8 @@ const Overlays = ({
 }) => {
   return (
     <Fragment>
-      {areInitialNumberOfPages && (
+      {displayOverlayGamesNotFound && (
         <GamesNotFoundOverlay
-          numberOfPages={numberOfPages}
           displayOverlayGamesNotFound={displayOverlayGamesNotFound}
           setDisplayOverlayGamesNotFound={setDisplayOverlayGamesNotFound}
         />

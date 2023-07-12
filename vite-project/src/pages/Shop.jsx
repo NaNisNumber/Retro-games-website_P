@@ -2,14 +2,13 @@ import React from "react";
 import ShopSection from "../components/shop-section/ShopSection";
 
 const Shop = ({
+  gamesData,
+  setGamesData,
+  lastPage,
   filterPanelIsOpened,
   setFilterPanelIsOpened,
-  games,
   openFilterBtnRef,
   setOpenFilterBtnRef,
-  pageContents,
-  setPageContents,
-  numberOfPages,
   displayOverlayGamesNotFound,
   setDisplayOverlayGamesNotFound,
   areInitialNumberOfPages,
@@ -27,12 +26,11 @@ const Shop = ({
 }) => {
   return (
     <ShopSection
-      pageContents={pageContents}
-      setPageContents={setPageContents}
-      numberOfPages={numberOfPages}
+      gamesData={gamesData}
+      setGamesData={setGamesData}
+      lastPage={lastPage}
       openFilterBtnRef={openFilterBtnRef}
       setOpenFilterBtnRef={setOpenFilterBtnRef}
-      games={games}
       filterPanelIsOpened={filterPanelIsOpened}
       setFilterPanelIsOpened={setFilterPanelIsOpened}
       displayOverlayGamesNotFound={displayOverlayGamesNotFound}

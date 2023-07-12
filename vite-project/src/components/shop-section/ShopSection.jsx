@@ -11,18 +11,15 @@ import CloseFilterPanelBtn from "./buttons/CloseFilterPanel/CloseFilterPanelBtn"
 import GameCard from "../gameCard/GameCard";
 
 const ShopSection = ({
+  gamesData,
+  setGamesData,
+  lastPage,
   filterPanelIsOpened,
   setFilterPanelIsOpened,
-  games,
   openFilterBtnRef,
   setOpenFilterBtnRef,
-  pageContents,
-  setPageContents,
-  numberOfPages,
   displayOverlayGamesNotFound,
   setDisplayOverlayGamesNotFound,
-  areInitialNumberOfPages,
-  setAreInitialNumberOfPages,
   setCartPanelIsOpened,
   cartPanelIsOpened,
   setBuyBtnActive,
@@ -35,7 +32,7 @@ const ShopSection = ({
 }) => {
   const [genres, setGenres] = useState([]);
   const [filters, setFilters] = useState({});
-  const [pageId, setPageId] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const [filteredGames, setFilteredGames] = useState([]);
   const [filteredGamesBySearchBar, setFilteredGamesBySearchBar] = useState([]);
   const [filterInputIdentifiers, setFilterInputIdentifiers] = useState([]);
@@ -53,10 +50,44 @@ const ShopSection = ({
     Price: false,
   });
   const [numOfOpenLists, setNumOfOpenLists] = useState(1);
-  const filterContainerRef = useRef(null);
+  const [gameCards, setGameCards] = useState([]);
 
+  const filterContainerRef = useRef(null);
   const ratings = ["1 star", "2 stars", "3 stars", "4 stars", "5 stars"];
   const prices = ["10$", "15$", "20$", "22$"];
+  const filteredGamesExist = filteredGames.length > 0;
+
+  const gamesCopy = [...gamesData]; // new properties will be added on this copy of the gamesData state and then gamesData original will be replaced with this clone;
+
+  const addNewPropertiesToGameObj = () => {
+    for (let i = 0; i < gamesCopy.length; i++) {
+      const game = gamesCopy[i];
+      const gameRating = game.rating;
+
+      if (gameRating <= 20) {
+        game.starRating = "1 star";
+        game.price = "10$";
+      } else if (gameRating > 20 && gameRating <= 40) {
+        game.starRating = "2 stars";
+        game.price = "10$";
+      } else if (gameRating > 40 && gameRating <= 60) {
+        game.starRating = "3 stars";
+        game.price = "15$";
+      } else if (gameRating > 60 && gameRating <= 80) {
+        game.starRating = "4 stars";
+        game.price = "20$";
+      } else {
+        game.starRating = "5 stars";
+        game.price = "22$";
+      }
+    }
+  };
+
+  gamesCopy.length > 0 && addNewPropertiesToGameObj();
+
+  useEffect(() => {
+    setGamesData(gamesCopy);
+  }, []);
 
   useEffect(() => {
     const retrieveGameGenres = async () => {
@@ -69,6 +100,18 @@ const ShopSection = ({
     };
     retrieveGameGenres();
   }, []);
+
+  useEffect(() => {
+    const retrieveGamesData = async () => {
+      const response = await fetch(
+        `http://localhost:5000/gamesData?game=${currentPage}`
+      );
+      const data = await response.json();
+
+      setGamesData(data);
+    };
+    retrieveGamesData();
+  }, [currentPage]);
 
   const closeFilterPanel = (e) => {
     if (e.target.closest(".gaming__filter-ul-visible")) return;
@@ -112,7 +155,6 @@ const ShopSection = ({
   const priceLists = createFilterLists(prices, "price");
 
   const updateFilter = (e) => {
-    setPageId(0);
     const target = e.target;
     const inputIsSelected = target.checked;
 
@@ -165,13 +207,13 @@ const ShopSection = ({
 
   useEffect(() => {
     const createFilteredGames = () => {
-      if (games.length === 0) return;
+      if (gamesData.length === 0) return;
       let filteredGames = [];
       let areIncluded;
 
-      for (let i = 0; i < games.length; i++) {
+      for (let i = 0; i < gamesData.length; i++) {
         areIncluded = null;
-        const game = games[i];
+        const game = gamesData[i];
         const genresListOfCurrentGame = game.genres;
         const starRating = game.starRating;
         const price = game.price;
@@ -217,7 +259,7 @@ const ShopSection = ({
       setFilteredGames(filteredGames);
     };
     createFilteredGames();
-  }, [games, filterInputIdentifiers]);
+  }, [gamesData, filterInputIdentifiers]);
 
   useEffect(() => {
     const filterInputs = document.querySelectorAll("input[data-filter-item]");
@@ -256,13 +298,12 @@ const ShopSection = ({
       });
     }
   }, [
+    gameCards,
     filterInputIdentifiers,
-    pageId,
+    currentPage,
     filteredGames,
-    pageContents,
     filterPanelIsOpened,
     displayOverlayGamesNotFound,
-    areInitialNumberOfPages,
     menusContainer,
     numOfOpenLists,
     ulListsAreOpened,
@@ -293,111 +334,21 @@ const ShopSection = ({
     };
   }, []);
 
-  const divideContentByLocalPages = (currentGames = games) => {
-    let pages = [];
-    const gamesPerPage = 40;
-    const numberOfPages = Math.ceil(currentGames.length / gamesPerPage);
-
-    if (currentGames === games) {
-      /* if current games from the first render of the page 
-      are the initial games to be displayed then modify areInitialNumberOfPages to true 
-      so that when the page loads for the first time the overlay doesn't toggle*/
-
-      setAreInitialNumberOfPages(true);
-    }
-    if (!numberOfPages) {
-      setDisplayOverlayGamesNotFound(true);
-    }
-    let totalAddedOnPages = 0;
-
-    for (let i = 0; i < numberOfPages; i++) {
-      pages.push([]);
-      if (i === 0) {
-        totalAddedOnPages = 0;
-      } else {
-        // if the page is full then fill the next page with the items from where it left off
-        totalAddedOnPages = totalAddedOnPages + gamesPerPage - 1;
-      }
-
-      if (i > 0) totalAddedOnPages += 1; // add +1 to the iteration so that if ex: 2nd iteration ends at j===39 it won t start the 3rd iteration including again the 39;
-      for (let j = totalAddedOnPages; j < currentGames.length; j++) {
-        const page = pages[i];
-        const game = currentGames[j];
-        if (page.length != gamesPerPage) {
-          page.push(game);
-        }
-      }
-    }
-    setPageContents(pages);
-  };
-
-  useEffect(() => {
-    const gamesExist = games.length > 0;
-    let filtersExist;
-    for (const filterCriterio in filters) {
-      if (filters[filterCriterio].length > 0) {
-        filtersExist = true;
-        break;
-      }
-    }
-
-    if (gamesExist && !filtersExist && filteredGamesBySearchBar.length === 0) {
-      divideContentByLocalPages();
-    } else if (filtersExist) {
-      divideContentByLocalPages(filteredGames);
-    } else {
-      divideContentByLocalPages(filteredGamesBySearchBar);
-    }
-  }, [filteredGames, filteredGamesBySearchBar]);
-
   const goToPrevPage = () => {
-    if (pageId === 0) return;
-    setPageId((prevPageId) => prevPageId - 1);
+    if (currentPage === 0) return;
+    setCurrentPage((prevPageId) => prevPageId - 1);
   };
 
   const goToNextPage = () => {
-    if (pageId > numberOfPages - 2) return; // -2 instead -1 because of how react handles state changes
-    setPageId((prevPageId) => prevPageId + 1);
+    if (currentPage === lastPage) return;
+    setCurrentPage((prevPageId) => prevPageId + 1);
   };
 
-  const changePageId = (e) => {
-    let currentInputValue = e.target.value;
-    if (currentInputValue >= 0 && currentInputValue <= numberOfPages - 1) {
-      setPageId(+currentInputValue);
-    }
-  };
-
-  const updateWishList = (e) => {
-    setWishlistBtnActive(true);
-    if (!userIsLogedIn) return;
-    e.stopPropagation();
-    const target = e.target.parentElement;
-    const currentGameId = +target.dataset.gameid;
-    const currentGame = games.find((game) => game.id === currentGameId);
-    if (!currentGame) return;
-    target.classList.add("gaming__heart-active");
-    setWishList((prevWishlist) => [...prevWishlist, currentGame]);
-    let gameExist = false;
-
-    for (let i = 0; i < wishList.length; i++) {
-      const game = wishList[i];
-      if (game.id == currentGameId) {
-        gameExist = true;
-      }
-    }
-    if (gameExist) {
-      const leftWishListGames = wishList.filter(
-        (game) => game.id != currentGameId
-      );
-      setWishList(leftWishListGames);
-    }
-  };
-
-  const createGameCard = () => {
+  const createGameCard = (data) => {
     const gameCards =
-      pageContents.length > 0 &&
-      pageId >= 0 &&
-      pageContents[pageId].map((game) => {
+      data.length > 0 &&
+      currentPage >= 0 &&
+      data.map((game) => {
         const gameCover = game.cover.url.replace("t_thumb", "t_cover_big");
         const gameName = game.name.toUpperCase();
         const gamePrice = game.price;
@@ -414,11 +365,14 @@ const ShopSection = ({
             gamePrice={gamePrice}
             starIcons={starIcons}
             game={game}
+            gamesData={gamesData}
             userIsLogedIn={userIsLogedIn}
             gamesForCart={gamesForCart}
             setGamesForCart={setGamesForCart}
             setBuyBtnActive={setBuyBtnActive}
-            updateWishList={updateWishList}
+            wishList={wishList}
+            setWishList={setWishList}
+            setWishlistBtnActive={setWishlistBtnActive}
             key={nanoid()}
           />
         );
@@ -426,7 +380,32 @@ const ShopSection = ({
 
     return gameCards;
   };
-  const gameCards = createGameCard();
+
+  useEffect(() => {
+    let gameCards;
+
+    function initiateGameCards() {
+      // check if there are filters selected;
+      let filtersExist = false;
+      // check the existence of filter items from the arrays that are in the filters object;
+      for (let filterType in filters) {
+        filtersExist = filters[filterType].length > 0;
+        if (filtersExist) break;
+      }
+
+      if (filteredGamesExist) {
+        gameCards = createGameCard(filteredGames);
+      } else if (filtersExist && !filteredGamesExist) {
+        // if there are no games in filteredGames to correspond with the selected filters
+        setDisplayOverlayGamesNotFound(true);
+        gameCards = createGameCard([]);
+      } else {
+        gameCards = createGameCard(gamesData);
+      }
+    }
+    initiateGameCards();
+    setGameCards(gameCards);
+  }, [gamesData, filteredGames, wishList]);
 
   useEffect(() => {
     const heartBtns = document.querySelectorAll(".gaming__heart-btn");
@@ -474,7 +453,7 @@ const ShopSection = ({
       <div ref={filterContainerRef} className="gaming__filter-container">
         <div className="gaming__searchbar-container">
           <SearchBar
-            games={games}
+            games={gamesData}
             setFilteredGamesBySearchBar={setFilteredGamesBySearchBar}
           />
           <CloseFilterPanelBtn
@@ -536,9 +515,9 @@ const ShopSection = ({
             <ion-icon name="remove"></ion-icon>
           </button>
           <input
-            value={pageId.toString()}
+            value={currentPage.toString()}
             onChange={(e) => {
-              changePageId(e);
+              updateCurrentPage(e);
             }}
             className="gaming__mobile-pages-input"
             type={"number"}
@@ -547,7 +526,7 @@ const ShopSection = ({
             <ion-icon name="add"></ion-icon>
           </button>
           <span className="gaming__mobile-pages-span">/</span>
-          <span className="gaming__mobile-pages-span">{numberOfPages - 1}</span>
+          <span className="gaming__mobile-pages-span">{lastPage}</span>
         </div>
       </div>
       {userIsLogedIn && (

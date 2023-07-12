@@ -1,8 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BuyBtn from "../shop-section/buttons/buy-button/BuyBtn";
+import auth from "../../firebaseConfig";
+import { onAuthStateChanged } from "firebase/auth";
 
 const GameCard = (props) => {
+  const [userIsLoged, setUserIsLoged] = useState();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserIsLoged(true);
+      } else {
+        setUserIsLoged(false);
+      }
+    });
+  }, []);
+
+  const updateWishList = (e) => {
+    props.setWishlistBtnActive(true);
+    e.stopPropagation();
+    const target = e.target.parentElement;
+    const currentGameId = +target.dataset.gameid;
+    const currentGame = props.gamesData.find(
+      (game) => game.id === currentGameId
+    );
+    if (!currentGame) return;
+    target.classList.add("gaming__heart-active");
+    props.setWishList((prevWishlist) => [...prevWishlist, currentGame]);
+
+    let gameExist = false;
+
+    for (let i = 0; i < props.wishList.length; i++) {
+      const game = props.wishList[i];
+      if (game.id == currentGameId) {
+        gameExist = true;
+      }
+    }
+
+    if (gameExist) {
+      const leftWishListGames = props.wishList.filter(
+        (game) => game.id != currentGameId
+      );
+
+      props.setWishList(leftWishListGames);
+    }
+  };
+
   return (
     <div className="gaming__game-container">
       <div className="gaming__game-fav-container">
@@ -10,7 +54,8 @@ const GameCard = (props) => {
         <button
           data-gameid={props.game.id}
           onClick={(e) => {
-            props.updateWishList(e);
+            if (!userIsLoged) return;
+            updateWishList(e);
           }}
           className="gaming__heart-btn"
         >

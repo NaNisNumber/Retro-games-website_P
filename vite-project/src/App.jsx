@@ -18,18 +18,26 @@ function App() {
   const [mainMenuIsClosed, setMainMenuIsClosed] = useState(true);
   const [filterPanelIsOpened, setFilterPanelIsOpened] = useState(false);
   const [cartPanelIsOpened, setCartPanelIsOpened] = useState(false);
-  const [games, setGames] = useState([]);
-  const [pageContents, setPageContents] = useState([]);
-  const numberOfPages = pageContents.length > 0 && pageContents.length;
   const [openFilterBtnRef, setOpenFilterBtnRef] = useState(null);
   const [displayOverlayGamesNotFound, setDisplayOverlayGamesNotFound] =
-    useState(true);
-  const [areInitialNumberOfPages, setAreInitialNumberOfPages] = useState(null);
+    useState(false);
   const [userIsLogedIn, setUserIsLogedIn] = useState(false);
   const [buyBtnActive, setBuyBtnActive] = useState(false);
   const [wishlistBtnActive, setWishlistBtnActive] = useState(false);
   const [gamesForCart, setGamesForCart] = useState([]);
   const [wishList, setWishList] = useState([]);
+  const [lastPage, setLastPage] = useState(0);
+  const [gamesData, setGamesData] = useState([]);
+
+  useEffect(() => {
+    const retrieveLastPageId = async () => {
+      const response = await fetch(`http://localhost:5000/id-for-last-page`);
+      const page = await response.json();
+
+      setLastPage(page);
+    };
+    retrieveLastPageId();
+  }, []);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -39,19 +47,6 @@ function App() {
         setUserIsLogedIn(false);
       }
     });
-  });
-
-  const gamesCopy = [...games];
-
-  useEffect(() => {
-    const retrieveGameData = async () => {
-      const response = await fetch(
-        "https://retro-gaming-games-server.herokuapp.com/"
-      );
-      const games = await response.json();
-      setGames(games);
-    };
-    retrieveGameData();
   }, []);
 
   useEffect(() => {
@@ -85,36 +80,6 @@ function App() {
     });
   }, [gamesForCart, wishList]);
 
-  const createLists = () => {
-    for (let i = 0; i < gamesCopy.length; i++) {
-      const game = gamesCopy[i];
-      const gameRating = game.rating;
-
-      if (gameRating <= 20) {
-        game.starRating = "1 star";
-        game.price = "10$";
-      } else if (gameRating > 20 && gameRating <= 40) {
-        game.starRating = "2 stars";
-        game.price = "10$";
-      } else if (gameRating > 40 && gameRating <= 60) {
-        game.starRating = "3 stars";
-        game.price = "15$";
-      } else if (gameRating > 60 && gameRating <= 80) {
-        game.starRating = "4 stars";
-        game.price = "20$";
-      } else {
-        game.starRating = "5 stars";
-        game.price = "22$";
-      }
-    }
-  };
-
-  gamesCopy.length > 0 && createLists();
-
-  useEffect(() => {
-    setGames(gamesCopy);
-  }, []);
-
   return (
     <Fragment>
       <BrowserRouter>
@@ -122,8 +87,6 @@ function App() {
           buyBtnActive={buyBtnActive}
           setBuyBtnActive={setBuyBtnActive}
           userIsLogedIn={userIsLogedIn}
-          areInitialNumberOfPages={areInitialNumberOfPages}
-          numberOfPages={numberOfPages}
           displayOverlayGamesNotFound={displayOverlayGamesNotFound}
           setDisplayOverlayGamesNotFound={setDisplayOverlayGamesNotFound}
           wishlistBtnActive={wishlistBtnActive}
@@ -161,20 +124,17 @@ function App() {
               path="/Retro-games-website_P/shop"
               element={
                 <Shop
-                  pageContents={pageContents}
-                  setPageContents={setPageContents}
-                  numberOfPages={numberOfPages}
+                  gamesData={gamesData}
+                  setGamesData={setGamesData}
+                  lastPage={lastPage}
                   openFilterBtnRef={openFilterBtnRef}
                   setOpenFilterBtnRef={setOpenFilterBtnRef}
-                  games={games}
                   filterPanelIsOpened={filterPanelIsOpened}
                   setFilterPanelIsOpened={setFilterPanelIsOpened}
                   displayOverlayGamesNotFound={displayOverlayGamesNotFound}
                   setDisplayOverlayGamesNotFound={
                     setDisplayOverlayGamesNotFound
                   }
-                  areInitialNumberOfPages={areInitialNumberOfPages}
-                  setAreInitialNumberOfPages={setAreInitialNumberOfPages}
                   setCartPanelIsOpened={setCartPanelIsOpened}
                   cartPanelIsOpened={cartPanelIsOpened}
                   setBuyBtnActive={setBuyBtnActive}
@@ -195,7 +155,7 @@ function App() {
                   userIsLogedIn={userIsLogedIn}
                   cartPanelIsOpened={cartPanelIsOpened}
                   setCartPanelIsOpened={setCartPanelIsOpened}
-                  games={games}
+                  // games={games}
                   gamesForCart={gamesForCart}
                   setGamesForCart={setGamesForCart}
                   setBuyBtnActive={setBuyBtnActive}
@@ -207,6 +167,7 @@ function App() {
               path="/Retro-games-website_P/wishlist"
               element={
                 <WishList
+                  gamesData={gamesData}
                   gamesForCart={gamesForCart}
                   setGamesForCart={setGamesForCart}
                   wishList={wishList}
@@ -214,7 +175,6 @@ function App() {
                   setBuyBtnActive={setBuyBtnActive}
                   userIsLogedIn={userIsLogedIn}
                   setWishlistBtnActive={setWishlistBtnActive}
-                  games={games}
                   cartPanelIsOpened={cartPanelIsOpened}
                   setCartPanelIsOpened={setCartPanelIsOpened}
                 />

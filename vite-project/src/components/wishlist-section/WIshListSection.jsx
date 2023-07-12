@@ -4,7 +4,9 @@ import { nanoid } from "nanoid";
 import "./WishList.css";
 import CartBtn from "../shop-section/buttons/cartBtn/CartBtn";
 import CartPanel from "../shop-section/CartPanel/CartPanel";
+
 const WishListSection = ({
+  gamesData,
   wishList,
   setWishList,
   gamesForCart,
@@ -12,7 +14,6 @@ const WishListSection = ({
   setBuyBtnActive,
   userIsLogedIn,
   setWishlistBtnActive,
-  games,
   cartPanelIsOpened,
   setCartPanelIsOpened,
 }) => {
@@ -27,35 +28,13 @@ const WishListSection = ({
         starIcons.push(<ion-icon key={nanoid()} name="star"></ion-icon>);
       }
 
-      const updateWishList = (e) => {
-        setWishlistBtnActive(true);
-        if (!userIsLogedIn) return;
-        e.stopPropagation();
-        const target = e.target.parentElement;
-        const currentGameId = +target.dataset.gameid;
-        const currentGame = games.find((game) => game.id === currentGameId);
-        if (!currentGame) return;
-        target.classList.add("gaming__heart-active");
-        setWishList((prevWishlist) => [...prevWishlist, currentGame]);
-        let gameExist = false;
-
-        for (let i = 0; i < wishList.length; i++) {
-          const game = wishList[i];
-          if (game.id == currentGameId) {
-            gameExist = true;
-          }
-        }
-        if (gameExist) {
-          const leftWishListGames = wishList.filter(
-            (game) => game.id != currentGameId
-          );
-          setWishList(leftWishListGames);
-        }
-      };
-
       return (
         <GameCard
           game={game}
+          gamesData={gamesData}
+          wishList={wishList}
+          setWishList={setWishList}
+          setWishlistBtnActive={setWishlistBtnActive}
           starIcons={starIcons}
           gameCover={gameCover}
           gameName={gameName}
@@ -65,7 +44,6 @@ const WishListSection = ({
           setBuyBtnActive={setBuyBtnActive}
           userIsLogedIn={userIsLogedIn}
           key={nanoid()}
-          updateWishList={updateWishList}
         />
       );
     });

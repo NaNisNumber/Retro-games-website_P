@@ -3,6 +3,7 @@ import React from "react";
 import WishListSection from "../components/wishlist-section/WIshListSection";
 
 const WishList = ({
+  gamesData,
   wishList,
   setWishList,
   gamesForCart,
@@ -16,6 +17,7 @@ const WishList = ({
 }) => {
   return (
     <WishListSection
+      gamesData={gamesData}
       wishList={wishList}
       setWishList={setWishList}
       gamesForCart={gamesForCart}
