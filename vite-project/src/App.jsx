@@ -31,7 +31,9 @@ function App() {
 
   useEffect(() => {
     const retrieveLastPageId = async () => {
-      const response = await fetch(`http://localhost:5000/id-for-last-page`);
+      const response = await fetch(
+        `https://retro-gaming-games-server.herokuapp.com/id-for-last-page`
+      );
       const page = await response.json();
 
       setLastPage(page);

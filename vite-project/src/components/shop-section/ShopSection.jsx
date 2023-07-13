@@ -56,6 +56,7 @@ const ShopSection = ({
   const ratings = ["1 star", "2 stars", "3 stars", "4 stars", "5 stars"];
   const prices = ["10$", "15$", "20$", "22$"];
   const filteredGamesExist = filteredGames.length > 0;
+  const filteredSearchbarGamesExist = filteredGamesBySearchBar.length > 0;
 
   const gamesCopy = [...gamesData]; // new properties will be added on this copy of the gamesData state and then gamesData original will be replaced with this clone;
 
@@ -104,7 +105,7 @@ const ShopSection = ({
   useEffect(() => {
     const retrieveGamesData = async () => {
       const response = await fetch(
-        `http://localhost:5000/gamesData?game=${currentPage}`
+        `https://retro-gaming-games-server.herokuapp.com/gamesData?game=${currentPage}`
       );
       const data = await response.json();
 
@@ -393,7 +394,9 @@ const ShopSection = ({
         if (filtersExist) break;
       }
 
-      if (filteredGamesExist) {
+      if (filteredSearchbarGamesExist) {
+        gameCards = createGameCard(filteredGamesBySearchBar);
+      } else if (filteredGamesExist) {
         gameCards = createGameCard(filteredGames);
       } else if (filtersExist && !filteredGamesExist) {
         // if there are no games in filteredGames to correspond with the selected filters
@@ -405,7 +408,7 @@ const ShopSection = ({
     }
     initiateGameCards();
     setGameCards(gameCards);
-  }, [gamesData, filteredGames, wishList]);
+  }, [filteredGamesBySearchBar, gamesData, filteredGames, wishList]);
 
   useEffect(() => {
     const heartBtns = document.querySelectorAll(".gaming__heart-btn");
@@ -453,7 +456,7 @@ const ShopSection = ({
       <div ref={filterContainerRef} className="gaming__filter-container">
         <div className="gaming__searchbar-container">
           <SearchBar
-            games={gamesData}
+            gamesData={gamesData}
             setFilteredGamesBySearchBar={setFilteredGamesBySearchBar}
           />
           <CloseFilterPanelBtn

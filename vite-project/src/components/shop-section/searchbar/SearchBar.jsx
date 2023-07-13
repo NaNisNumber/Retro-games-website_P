@@ -1,7 +1,9 @@
 import React, { useRef } from "react";
 import "./SearchBar.css";
 
-const SearchBar = ({ setFilteredGamesBySearchBar, games }) => {
+const SearchBar = ({ setFilteredGamesBySearchBar, gamesData }) => {
+  const searchBarRef = useRef(null);
+
   const filterGamesByName = (e) => {
     let filteredGames = [];
     const targetValue = e.target.value.toLowerCase();
@@ -10,10 +12,10 @@ const SearchBar = ({ setFilteredGamesBySearchBar, games }) => {
       filteredGames = [];
       setFilteredGamesBySearchBar(filteredGames);
     }
-    if (games.length === 0 || !targetValue) return;
+    if (gamesData.length === 0 || !targetValue) return;
 
-    for (let i = 0; i < games.length; i++) {
-      const game = games[i];
+    for (let i = 0; i < gamesData.length; i++) {
+      const game = gamesData[i];
       const gameName = game.name.toLowerCase();
       if (targetValue === gameName.slice(0, numberOfChars)) {
         filteredGames.push(game);
@@ -22,7 +24,6 @@ const SearchBar = ({ setFilteredGamesBySearchBar, games }) => {
     setFilteredGamesBySearchBar(filteredGames);
   };
 
-  const searchBarRef = useRef(null);
   return (
     <div ref={searchBarRef} className="gaming__searchbar">
       <input
