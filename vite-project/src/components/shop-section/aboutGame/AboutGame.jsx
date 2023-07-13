@@ -7,7 +7,7 @@ import { nanoid } from "nanoid";
 
 const AboutGame = ({
   userIsLogedIn,
-  games,
+  gamesData,
   cartPanelIsOpened,
   setCartPanelIsOpened,
   gamesForCart,
@@ -22,8 +22,8 @@ const AboutGame = ({
     const splitedPath = path.split("/");
     const idFromPath = +splitedPath[splitedPath.length - 1];
 
-    for (let i = 0; i < games.length; i++) {
-      const game = games[i];
+    for (let i = 0; i < gamesData.length; i++) {
+      const game = gamesData[i];
       if (game.id === idFromPath) {
         currentGame = game;
       }

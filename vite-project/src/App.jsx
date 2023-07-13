@@ -155,7 +155,7 @@ function App() {
                   userIsLogedIn={userIsLogedIn}
                   cartPanelIsOpened={cartPanelIsOpened}
                   setCartPanelIsOpened={setCartPanelIsOpened}
-                  // games={games}
+                  gamesData={gamesData}
                   gamesForCart={gamesForCart}
                   setGamesForCart={setGamesForCart}
                   setBuyBtnActive={setBuyBtnActive}
