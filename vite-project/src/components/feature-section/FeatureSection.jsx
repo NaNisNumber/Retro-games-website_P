@@ -3,10 +3,9 @@ import "./FeatureSection.css";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const FeatureSection = ({ mainMenuIsClosed }) => {
+const FeatureSection = ({ mainMenuIsClosed, games, setSliderGames }) => {
   const sliderRef = useRef(null);
   const slidesContainer = useRef(null);
-  const [games, setSliderGames] = useState([]);
   const [currentSliderGameId, setCurrentSliderGameId] = useState(null);
   const [sliderDirection, setSliderDirection] = useState(0);
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -199,7 +198,7 @@ const FeatureSection = ({ mainMenuIsClosed }) => {
               <ion-icon name="arrow-forward"></ion-icon>
             </button>
             <div className="gaming__feature-game-cta-container">
-              <Link to={`shop/${currentSliderGameId}`}>
+              <Link to={`/shop/${currentSliderGameId}`}>
                 <button className="gaming__feature-game-page-btn">
                   See Game
                 </button>

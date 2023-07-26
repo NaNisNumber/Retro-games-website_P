@@ -7,7 +7,7 @@ const GamesNotFoundOverlay = ({ setDisplayOverlayGamesNotFound }) => {
 
   return (
     <Fragment>
-      {pathName === "/Retro-games-website_P/shop" && (
+      {pathName === "/shop" && (
         <div ref={gamesOverlay} className="gaming__games-not-found-overlay">
           <div className="gaming__games-not-found-overlay-container">
             <p className="gaming__games-not-found-message">

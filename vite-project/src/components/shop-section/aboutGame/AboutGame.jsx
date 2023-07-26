@@ -4,8 +4,10 @@ import SelectionContainer from "./selectionContainer/SelectionContainer";
 import CartBtn from "../buttons/cartBtn/CartBtn";
 import CartPanel from "../CartPanel/CartPanel";
 import { nanoid } from "nanoid";
+import { addNewPropertiesToGameObj } from "../../../../Assets/addNewPropertiesToGameObj";
 
 const AboutGame = ({
+  games,
   userIsLogedIn,
   gamesData,
   cartPanelIsOpened,
@@ -14,15 +16,27 @@ const AboutGame = ({
   setGamesForCart,
   setBuyBtnActive,
 }) => {
+  const sliderGamesCopy = [...games];
+
+  addNewPropertiesToGameObj(sliderGamesCopy);
+
   const findCurrentGame = () => {
     const [selectedTab, setSelectedTab] = useState("about");
 
     let currentGame;
-    const path = window.location.pathname;
+    const path = window.location.hash;
     const splitedPath = path.split("/");
     const idFromPath = +splitedPath[splitedPath.length - 1];
 
+    for (let i = 0; i < games.length; i++) {
+      const game = games[i];
+      if (game.id === idFromPath) {
+        currentGame = game;
+      }
+    }
+
     for (let i = 0; i < gamesData.length; i++) {
+      if (currentGame) break;
       const game = gamesData[i];
       if (game.id === idFromPath) {
         currentGame = game;

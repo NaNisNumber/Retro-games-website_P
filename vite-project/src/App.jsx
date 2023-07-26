@@ -9,7 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Overlays from "./Overlays";
 import AboutGame from "./components/shop-section/aboutGame/AboutGame";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import auth from "./firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { writeUserData, database, ref, onValue } from "./firebaseConfig";
@@ -28,6 +28,7 @@ function App() {
   const [wishList, setWishList] = useState([]);
   const [lastPage, setLastPage] = useState(0);
   const [gamesData, setGamesData] = useState([]);
+  const [games, setSliderGames] = useState([]);
 
   useEffect(() => {
     const retrieveLastPageId = async () => {
@@ -84,7 +85,7 @@ function App() {
 
   return (
     <Fragment>
-      <BrowserRouter>
+      <HashRouter>
         <Overlays
           buyBtnActive={buyBtnActive}
           setBuyBtnActive={setBuyBtnActive}
@@ -96,7 +97,7 @@ function App() {
         />
         <Routes>
           <Route
-            path="/Retro-games-website_P"
+            path=""
             element={
               <SharedComponents
                 setBuyBtnActive={setBuyBtnActive}
@@ -117,13 +118,15 @@ function App() {
               index
               element={
                 <Home
+                  games={games}
+                  setSliderGames={setSliderGames}
                   mainMenuIsClosed={mainMenuIsClosed}
                   setMainMenuIsClosed={setMainMenuIsClosed}
                 />
               }
             />
             <Route
-              path="/Retro-games-website_P/shop"
+              path="/shop"
               element={
                 <Shop
                   gamesData={gamesData}
@@ -151,9 +154,10 @@ function App() {
             ></Route>
 
             <Route
-              path="/Retro-games-website_P/shop/:gameId"
+              path="/shop/:gameId"
               element={
                 <AboutGame
+                  games={games}
                   userIsLogedIn={userIsLogedIn}
                   cartPanelIsOpened={cartPanelIsOpened}
                   setCartPanelIsOpened={setCartPanelIsOpened}
@@ -166,7 +170,7 @@ function App() {
             ></Route>
 
             <Route
-              path="/Retro-games-website_P/wishlist"
+              path="/wishlist"
               element={
                 <WishList
                   gamesData={gamesData}
@@ -183,21 +187,18 @@ function App() {
               }
             />
 
+            <Route path="/contact" element={<Contact />} />
             <Route
-              path="/Retro-games-website_P/contact"
-              element={<Contact />}
-            />
-            <Route
-              path="/Retro-games-website_P/login"
+              path="/login"
               element={<Login userIsLogedIn={userIsLogedIn} />}
             />
             <Route
-              path="/Retro-games-website_P/register"
+              path="/register"
               element={<Register userIsLogedIn={userIsLogedIn} />}
             />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </Fragment>
   );
 }

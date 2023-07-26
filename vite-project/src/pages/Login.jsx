@@ -10,7 +10,7 @@ const Login = ({ userIsLogedIn }) => {
 
   useEffect(() => {
     if (redirectSecondsFromLogin === 0) {
-      navigate("/Retro-games-website_P/shop");
+      navigate("/shop");
     }
     if (!userIsLogedIn || redirectSecondsFromLogin === 0) return;
     setTimeout(() => {

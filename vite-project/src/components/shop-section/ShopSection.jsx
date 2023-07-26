@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import ReactDOM from "react-dom";
 import { nanoid } from "nanoid";
+import { addNewPropertiesToGameObj } from "../../../Assets/addNewPropertiesToGameObj";
 import SearchBar from "./searchbar/SearchBar";
 import OpenFilterBtn from "./buttons/open-filter-btn/OpenFilterBtn";
 import FilterCriterion from "./filterCriterion/FilterCriterion";
@@ -60,31 +61,7 @@ const ShopSection = ({
 
   const gamesCopy = [...gamesData]; // new properties will be added on this copy of the gamesData state and then gamesData original will be replaced with this clone;
 
-  const addNewPropertiesToGameObj = () => {
-    for (let i = 0; i < gamesCopy.length; i++) {
-      const game = gamesCopy[i];
-      const gameRating = game.rating;
-
-      if (gameRating <= 20) {
-        game.starRating = "1 star";
-        game.price = "10$";
-      } else if (gameRating > 20 && gameRating <= 40) {
-        game.starRating = "2 stars";
-        game.price = "10$";
-      } else if (gameRating > 40 && gameRating <= 60) {
-        game.starRating = "3 stars";
-        game.price = "15$";
-      } else if (gameRating > 60 && gameRating <= 80) {
-        game.starRating = "4 stars";
-        game.price = "20$";
-      } else {
-        game.starRating = "5 stars";
-        game.price = "22$";
-      }
-    }
-  };
-
-  gamesCopy.length > 0 && addNewPropertiesToGameObj();
+  gamesCopy.length > 0 && addNewPropertiesToGameObj(gamesCopy);
 
   useEffect(() => {
     setGamesData(gamesCopy);

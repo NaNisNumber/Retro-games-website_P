@@ -3,10 +3,7 @@ import "./GoToRegisterBtn.css";
 import { Link } from "react-router-dom";
 const RegisterBtn = () => {
   return (
-    <Link
-      className="gaming__navbar-register-btn"
-      to="/Retro-games-website_P/register"
-    >
+    <Link className="gaming__navbar-register-btn" to="/register">
       Create account
     </Link>
   );
