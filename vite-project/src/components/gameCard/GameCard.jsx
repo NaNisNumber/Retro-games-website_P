@@ -65,7 +65,7 @@ const GameCard = (props) => {
       <img className="gaming__game-img" src={props.gameCover}></img>
       <p className="gaming__game-name">{props.gameName}</p>
       <div className="gaming__game-actions-container">
-        <Link to={`/Retro-games-website_P/shop/${props.game.id}`}>
+        <Link to={`/shop/${props.game.id}`}>
           <button className="gaming__about-game-btn">About Game</button>
         </Link>
         <BuyBtn

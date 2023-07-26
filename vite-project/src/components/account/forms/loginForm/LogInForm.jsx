@@ -12,6 +12,7 @@ const LogInForm = () => {
 
   const login = async (e) => {
     e.preventDefault();
+
     try {
       const userLoginCredentials = await signInWithEmailAndPassword(
         auth,
