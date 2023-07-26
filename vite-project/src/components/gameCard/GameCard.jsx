@@ -18,7 +18,6 @@ const GameCard = (props) => {
   }, []);
 
   const updateWishList = (e) => {
-    props.setWishlistBtnActive(true);
     e.stopPropagation();
     const target = e.target.parentElement;
     const currentGameId = +target.dataset.gameid;
@@ -54,7 +53,10 @@ const GameCard = (props) => {
         <button
           data-gameid={props.game.id}
           onClick={(e) => {
-            if (!userIsLoged) return;
+            if (!userIsLoged) {
+              props.setWishlistBtnActive(true);
+              return;
+            }
             updateWishList(e);
           }}
           className="gaming__heart-btn"

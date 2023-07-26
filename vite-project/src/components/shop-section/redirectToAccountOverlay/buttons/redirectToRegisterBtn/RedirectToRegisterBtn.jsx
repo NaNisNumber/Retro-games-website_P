@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 
 const RedirectToRegisterBtn = () => {
   return (
-    <Link
-      to="/Retro-games-website_P/register"
-      className="gaming__redirect-to-register-btn"
-    >
+    <Link to="/register" className="gaming__redirect-to-register-btn">
       Create account
     </Link>
   );

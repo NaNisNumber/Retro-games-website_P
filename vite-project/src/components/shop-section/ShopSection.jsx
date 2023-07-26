@@ -52,6 +52,7 @@ const ShopSection = ({
   });
   const [numOfOpenLists, setNumOfOpenLists] = useState(1);
   const [gameCards, setGameCards] = useState([]);
+  const [filterInputsChecked, setFilterInputsChecked] = useState({});
 
   const filterContainerRef = useRef(null);
   const ratings = ["1 star", "2 stars", "3 stars", "4 stars", "5 stars"];
@@ -116,31 +117,64 @@ const ShopSection = ({
   };
 
   const createFilterLists = (criterion, type) => {
-    return criterion.map((item, i) => (
-      <li key={nanoid()}>
-        {item}
-        <input
-          data-i={i}
-          data-filter-item={item}
-          data-filter-type={type}
-          type={"checkbox"}
-        ></input>
-      </li>
-    ));
+    const filterInputsCheckedTemplate = {};
+
+    const lists = criterion.map((item, i) => {
+      //prepare all the properties for the checked inputs to be initially false
+      filterInputsCheckedTemplate[`${type}-${i}`] = false;
+      //
+
+      return (
+        <li key={nanoid()}>
+          {item}
+          <input
+            checked={filterInputsChecked[`${type}-${i}`]}
+            onChange={(e) => {
+              const target = e.target;
+              const inputTypeId = target.dataset.inputTypeId;
+
+              setFilterInputsChecked((prevFilterInputsChecked) => {
+                return {
+                  ...prevFilterInputsChecked,
+                  [inputTypeId]: !prevFilterInputsChecked[inputTypeId],
+                };
+              });
+            }}
+            data-input-type-id={`${type}-${i}`}
+            data-i={i}
+            data-filter-item={item}
+            data-filter-type={type}
+            type={"checkbox"}
+          ></input>
+        </li>
+      );
+    });
+
+    return { lists: lists, templates: filterInputsCheckedTemplate };
   };
-  const genresLists = createFilterLists(genres, "genre");
-  const ratingLists = createFilterLists(ratings, "rating");
-  const priceLists = createFilterLists(prices, "price");
+
+  const { lists: genresLists, templates: genresInputCheckedTemplates } =
+    createFilterLists(genres, "genre");
+  const { lists: ratingLists, templates: ratingInputCheckedTemplates } =
+    createFilterLists(ratings, "rating");
+  const { lists: priceLists, templates: priceInputCheckedTemplates } =
+    createFilterLists(prices, "price");
+
+  useEffect(() => {
+    setFilterInputsChecked({
+      ...genresInputCheckedTemplates,
+      ...ratingInputCheckedTemplates,
+      ...priceInputCheckedTemplates,
+    });
+  }, []);
 
   const updateFilter = (e) => {
     const target = e.target;
     const inputIsSelected = target.checked;
-
     if (target.nodeName != "INPUT") return;
     const itemForFilter = [target.dataset.filterItem];
     const criterionType = target.dataset.filterType;
     const inputIdentifier = [+target.dataset.i];
-
     const updateFilterStates = (setFunction, item) => {
       setFunction((prevFilters) => {
         let prevCriterionTypeItems;
@@ -151,24 +185,20 @@ const ShopSection = ({
             ? prevFilters[criterionType]
             : [];
         }
-
         return {
           ...prevFilters,
           [criterionType]: [...prevCriterionTypeItems, ...item],
         };
       });
     };
-
     // remove items from filter list
     if (!inputIsSelected) {
       const leftIdentifiers = filterInputIdentifiers[criterionType].filter(
         (identifier) => identifier !== inputIdentifier[0]
       );
-
       const leftItems = filters[criterionType].filter(
         (item) => item !== itemForFilter[0]
       );
-
       updateFilterStates(setFilters, leftItems);
       updateFilterStates(setFilterInputIdentifiers, leftIdentifiers);
     }
@@ -178,7 +208,6 @@ const ShopSection = ({
       filters[criterionType].includes(itemForFilter[0])
     )
       return;
-
     updateFilterStates(setFilters, itemForFilter);
     updateFilterStates(setFilterInputIdentifiers, inputIdentifier);
   };
@@ -238,57 +267,6 @@ const ShopSection = ({
     };
     createFilteredGames();
   }, [gamesData, filterInputIdentifiers]);
-
-  useEffect(() => {
-    const filterInputs = document.querySelectorAll("input[data-filter-item]");
-    let filterInputsOrganized = {};
-
-    // if (filterInputs.length === 0 && filterInputIdentifiers.length === 0)
-    // return;
-    for (const criterionIdentifier in filterInputIdentifiers) {
-      !filterInputsOrganized[criterionIdentifier]
-        ? (filterInputsOrganized[criterionIdentifier] = [])
-        : null;
-      // select the inputs that need to go into filterInputsOrganized by the filterInputIdentifiers[criterionIdentifier]
-      for (let i = 0; i < filterInputs.length; i++) {
-        for (
-          let j = 0;
-          j < filterInputIdentifiers[criterionIdentifier].length;
-          j++
-        ) {
-          if (
-            +filterInputs[i].dataset.i ===
-              filterInputIdentifiers[criterionIdentifier][j] &&
-            filterInputs[i].dataset.filterType === criterionIdentifier
-          ) {
-            if (
-              !filterInputsOrganized[criterionIdentifier].includes(
-                filterInputs[i]
-              )
-            ) {
-              filterInputsOrganized[criterionIdentifier].push(filterInputs[i]);
-            }
-          }
-        }
-      }
-      filterInputsOrganized[criterionIdentifier].forEach((input) => {
-        input.setAttribute("checked", "");
-      });
-    }
-  }, [
-    gameCards,
-    filterInputIdentifiers,
-    currentPage,
-    filteredGames,
-    filterPanelIsOpened,
-    displayOverlayGamesNotFound,
-    menusContainer,
-    numOfOpenLists,
-    ulListsAreOpened,
-    tabWasClickedTwice,
-    currentTab,
-    filteredGamesBySearchBar,
-  ]);
 
   const toggleFilterPanel = () => {
     if (!filterContainerRef.current) return;
@@ -383,7 +361,9 @@ const ShopSection = ({
         gameCards = createGameCard(gamesData);
       }
     }
+
     initiateGameCards();
+
     setGameCards(gameCards);
   }, [filteredGamesBySearchBar, gamesData, filteredGames, wishList]);
 
