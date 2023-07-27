@@ -1,8 +1,9 @@
 export const addNewPropertiesToGameObj = (gamesArr) => {
+  const gamesCopy = [];
   for (let i = 0; i < gamesArr.length; i++) {
-    const game = gamesArr[i];
+    const game = { ...gamesArr[i] };
     const gameRating = game.rating;
-
+    game.isCopy = true;
     if (gameRating <= 20) {
       game.starRating = "1 star";
       game.price = "10$";
@@ -19,5 +20,8 @@ export const addNewPropertiesToGameObj = (gamesArr) => {
       game.starRating = "5 stars";
       game.price = "22$";
     }
+    gamesCopy.push(game);
   }
+
+  return gamesCopy;
 };

@@ -60,13 +60,26 @@ const ShopSection = ({
   const filteredGamesExist = filteredGames.length > 0;
   const filteredSearchbarGamesExist = filteredGamesBySearchBar.length > 0;
 
-  const gamesCopy = [...gamesData]; // new properties will be added on this copy of the gamesData state and then gamesData original will be replaced with this clone;
-
-  gamesCopy.length > 0 && addNewPropertiesToGameObj(gamesCopy);
-
   useEffect(() => {
+    /* Check if there aren't elements in gamesData to prevent the effect to run infinitely.
+    Because this effect will run before the one that retrieves the gamesData then the gamesData will always
+    be an empty array and when a change in state to gamesData happens here in the effect setting the state to gamesCopy, the copy will be
+    an empty array because it is based on the gamesData.
+    With the below statement if gamesData is empty, the effect wil stop running again and react will continue to call the next effects and
+     when a real change happens and gamesData != empty this will be called again after all the code in this component ran
+     and gamesCopy has it's elements;
+
+    */
+    if (gamesData.length === 0) return;
+    //
+
+    /* here we check if something is in the gamesData and if that something comes from the gamesCopy */
+    if (gamesData.length > 0 && gamesData[0].isCopy) return;
+    //
+
+    const gamesCopy = addNewPropertiesToGameObj(gamesData); // this will return gamesCopy and won't mutate the state
     setGamesData(gamesCopy);
-  }, []);
+  }, [gamesData]);
 
   useEffect(() => {
     const retrieveGameGenres = async () => {
@@ -305,12 +318,12 @@ const ShopSection = ({
       data.length > 0 &&
       currentPage >= 0 &&
       data.map((game) => {
+        if (!game.starRating) return;
+        const numberOfStars = +game.starRating.slice(0, 1);
         const gameCover = game.cover.url.replace("t_thumb", "t_cover_big");
         const gameName = game.name.toUpperCase();
         const gamePrice = game.price;
-        const numberOfStars = +game.starRating.slice(0, 1);
         const starIcons = [];
-
         for (let i = 0; i < numberOfStars; i++) {
           starIcons.push(<ion-icon key={nanoid()} name="star"></ion-icon>);
         }
