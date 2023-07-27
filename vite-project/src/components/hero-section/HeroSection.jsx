@@ -26,10 +26,7 @@ export default function HeroSection() {
             favorites without breaking the bank. Our inventory is constantly
             updating, so be sure to check back often for new arrivals.
           </p>
-          <Link
-            className="gaming__hero-link"
-            to={"/Retro-games-website_P/shop"}
-          >
+          <Link className="gaming__hero-link" to={"/shop"}>
             <button className="gaming__hero-btn">See Our Games</button>
           </Link>
         </header>
