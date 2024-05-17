@@ -33,7 +33,7 @@ function App() {
   useEffect(() => {
     const retrieveLastPageId = async () => {
       const response = await fetch(
-        `https://retro-gaming-games-server.herokuapp.com/id-for-last-page`
+        `https://retro-gaming-games-server-production.up.railway.app/id-for-last-page`
       );
       const page = await response.json();
 
@@ -56,10 +56,12 @@ function App() {
     if (!userIsLogedIn) return;
     const uid = auth.currentUser && auth.currentUser.uid;
     const userRef = ref(database, "users/" + uid);
+
     onValue(userRef, (snapshot) => {
       const data = snapshot.val();
       const gamesWishListDbStr = data && data.gamesForWishList;
       const gamesWishListDbArr = JSON.parse(gamesWishListDbStr);
+
 
       if (data && data.gamesForWishList) {
         setWishList(gamesWishListDbArr);

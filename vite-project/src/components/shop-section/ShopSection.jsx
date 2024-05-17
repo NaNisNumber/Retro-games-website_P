@@ -53,7 +53,6 @@ const ShopSection = ({
   const [numOfOpenLists, setNumOfOpenLists] = useState(1);
   const [gameCards, setGameCards] = useState([]);
   const [filterInputsChecked, setFilterInputsChecked] = useState({});
-
   const filterContainerRef = useRef(null);
   const ratings = ["1 star", "2 stars", "3 stars", "4 stars", "5 stars"];
   const prices = ["10$", "15$", "20$", "22$"];
@@ -84,7 +83,7 @@ const ShopSection = ({
   useEffect(() => {
     const retrieveGameGenres = async () => {
       const response = await fetch(
-        "https://retro-gaming-genres-server.herokuapp.com/"
+        "https://retro-gaming-genres-games-server-production.up.railway.app/"
       );
       const genres = await response.json();
 
@@ -96,7 +95,7 @@ const ShopSection = ({
   useEffect(() => {
     const retrieveGamesData = async () => {
       const response = await fetch(
-        `https://retro-gaming-games-server.herokuapp.com/gamesData?game=${currentPage}`
+        `https://retro-gaming-games-server-production.up.railway.app/gamesData?game=${currentPage}`
       );
       const data = await response.json();
 
@@ -365,6 +364,7 @@ const ShopSection = ({
       if (filteredSearchbarGamesExist) {
         gameCards = createGameCard(filteredGamesBySearchBar);
       } else if (filteredGamesExist) {
+        setDisplayOverlayGamesNotFound(false);
         gameCards = createGameCard(filteredGames);
       } else if (filtersExist && !filteredGamesExist) {
         // if there are no games in filteredGames to correspond with the selected filters
@@ -378,7 +378,9 @@ const ShopSection = ({
     initiateGameCards();
 
     setGameCards(gameCards);
-  }, [filteredGamesBySearchBar, gamesData, filteredGames, wishList]);
+  }, [filteredGamesExist, filteredGamesBySearchBar, gamesData, filteredGames, wishList]);
+
+
 
   useEffect(() => {
     const heartBtns = document.querySelectorAll(".gaming__heart-btn");

@@ -23,8 +23,9 @@ const FeatureSection = ({ mainMenuIsClosed, games, setSliderGames }) => {
     // games for slider
     const retrieveGameData = async () => {
       const response = await fetch(
-        "https://retro-gaming-slides-server.herokuapp.com/"
+        "https://retro-gaming-slider-games-server-production.up.railway.app/"
       );
+
       const games = await response.json();
       setSliderGames(games);
     };

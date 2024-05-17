@@ -10,7 +10,7 @@ const firebaseConfig = {
   messagingSenderId: "42334799513",
   appId: "1:42334799513:web:a9201fecda715da1a51a08",
   databaseURL:
-    "https://fir-frontend-33ada-default-rtdb.europe-west1.firebasedatabase.app",
+    "https://fir-frontend-33ada-default-rtdb.europe-west1.firebasedatabase.app/",
 };
 
 const app = initializeApp(firebaseConfig);
