@@ -16,30 +16,20 @@ const AboutGame = ({
   setGamesForCart,
   setBuyBtnActive,
 }) => {
-  const sliderGamesCopy = [...games];
-
-  addNewPropertiesToGameObj(sliderGamesCopy);
 
   const findCurrentGame = () => {
+    const sliderGamesData = addNewPropertiesToGameObj(games);
     const [selectedTab, setSelectedTab] = useState("about");
-
     let currentGame;
     const path = window.location.hash;
     const splitedPath = path.split("/");
     const idFromPath = +splitedPath[splitedPath.length - 1];
 
-    for (let i = 0; i < games.length; i++) {
-      const game = games[i];
+    for (let i = 0; i < sliderGamesData.length; i++) {
+      const game = sliderGamesData[i];
       if (game.id === idFromPath) {
         currentGame = game;
-      }
-    }
-
-    for (let i = 0; i < gamesData.length; i++) {
-      if (currentGame) break;
-      const game = gamesData[i];
-      if (game.id === idFromPath) {
-        currentGame = game;
+        break;
       }
     }
 
